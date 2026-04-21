@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BB — Social Carousels · 2026</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<style>
+  :root{
+    --ink:#1A1918; --paper:#F7F5F2; --yellow:#FACC15; --forge:#F49E1C;
+    --gray:#505050; --mid:#6B6B6B;
+  }
+  html,body{margin:0; background:#E7E3DD; color:var(--ink); font-family:var(--font-body);}
+
+  .page-head{
+    background:var(--ink); color:#fff; padding:48px 32px 56px; text-align:center;
+    border-bottom:4px solid var(--yellow);
+  }
+  .page-head .eyebrow{
+    display:inline-block; background:var(--yellow); color:var(--ink);
+    padding:8px 14px; font-family:var(--font-display); font-weight:700;
+    font-size:12px; letter-spacing:.24em; text-transform:uppercase;
+  }
+  .page-head h1{
+    font-family:var(--font-display); font-weight:900;
+    font-size:clamp(36px,6vw,64px); line-height:.95; letter-spacing:-.02em;
+    text-transform:uppercase; margin:22px 0 12px;
+  }
+  .page-head h1 em{font-style:italic;}
+  .page-head h1 .yel{color:var(--yellow);}
+  .page-head .sub{
+    font-family:var(--font-serif); font-style:italic; font-size:18px;
+    color:#D6CFBE; max-width:720px; margin:0 auto;
+  }
+  .wrap{padding:56px 24px; max-width:1380px; margin:0 auto;}
+
+  .carousel{
+    background:#fff; border:2px solid var(--ink);
+    box-shadow:8px 8px 0 0 var(--ink);
+    margin-bottom:56px;
+  }
+  .carousel .meta{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:14px 20px; border-bottom:2px solid var(--ink);
+    background:var(--paper);
+    flex-wrap:wrap; gap:10px;
+  }
+  .carousel .wk{
+    font-family:var(--font-display); font-weight:800; font-size:14px;
+    letter-spacing:.18em; text-transform:uppercase;
+  }
+  .carousel .title{
+    font-family:var(--font-display); font-weight:800; font-size:14px;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--forge);
+  }
+  .carousel .tag{
+    font-family:var(--font-display); font-weight:700; font-size:10px;
+    letter-spacing:.22em; text-transform:uppercase;
+    padding:4px 10px; background:var(--ink); color:var(--yellow);
+  }
+
+  .track{
+    display:flex; gap:16px; padding:24px; overflow-x:auto;
+    scroll-snap-type:x mandatory; background:#F0EDE7;
+    border-bottom:2px solid var(--ink);
+  }
+  .track::-webkit-scrollbar{height:10px;}
+  .track::-webkit-scrollbar-track{background:transparent;}
+  .track::-webkit-scrollbar-thumb{background:var(--ink); border-radius:0;}
+
+  .slide-wrap{
+    flex:0 0 auto; width:340px;
+    scroll-snap-align:start;
+    position:relative;
+    border:2px solid var(--ink);
+    box-shadow:4px 4px 0 0 var(--ink);
+    background:var(--ink); overflow:hidden;
+    aspect-ratio:1 / 1;
+  }
+  .slide{
+    position:absolute; top:0; left:0;
+    width:1080px; height:1080px;
+    transform-origin:top left;
+    overflow:hidden;
+  }
+
+  .cap{padding:16px 20px 20px;}
+  .cap .hd{
+    font-family:var(--font-display); font-weight:800; font-size:11px;
+    letter-spacing:.22em; text-transform:uppercase; color:var(--mid); margin-bottom:6px;
+  }
+  .cap .body{font-family:var(--font-body); font-size:14px; line-height:1.55; color:var(--ink);}
+  .cap .tags{margin-top:10px; font-family:var(--font-mono); font-size:11.5px; color:var(--gray); line-height:1.55;}
+
+  /* ===== Slide chrome ===== */
+  .slide-chrome{
+    position:absolute; left:64px; right:64px; bottom:54px;
+    display:flex; justify-content:space-between; align-items:center;
+    z-index:5;
+  }
+  .slide-chrome .counter{
+    font-family:var(--font-display); font-weight:800; font-size:22px;
+    letter-spacing:.22em;
+  }
+  .slide-chrome .mark{height:44px; opacity:.95;}
+
+  .slide .bg-grid{
+    position:absolute; inset:0; pointer-events:none;
+    background:
+      linear-gradient(90deg, transparent 0, transparent calc(100% - 1px), rgba(255,255,255,.05) 100%) 0 0 / 120px 100%,
+      linear-gradient(0deg, transparent 0, transparent calc(100% - 1px), rgba(255,255,255,.05) 100%) 0 0 / 100% 120px;
+  }
+  .slide .wm{
+    position:absolute; pointer-events:none; user-select:none;
+    font-family:var(--font-display); font-weight:900; line-height:.78;
+    letter-spacing:-.04em; text-transform:uppercase;
+    font-size:760px; color:rgba(250,204,21,.05);
+    top:-120px; right:-60px;
+  }
+
+  /* ===== Cover (yellow) ===== */
+  .tpl-cover-yellow{
+    background:linear-gradient(135deg, #FACC15 0%, #F49E1C 100%);
+    color:var(--ink);
+    padding:96px 80px 160px;
+    display:flex; flex-direction:column; gap:30px; justify-content:center;
+  }
+  .tpl-cover-yellow .pillarBadge{
+    align-self:flex-start; background:var(--ink); color:var(--yellow);
+    padding:14px 22px;
+    font-family:var(--font-display); font-weight:900; font-size:24px;
+    letter-spacing:.32em; text-transform:uppercase;
+  }
+  .tpl-cover-yellow .head{
+    font-family:var(--font-display); font-weight:900;
+    font-size:128px; line-height:.95; letter-spacing:-.03em;
+    text-transform:uppercase; margin:0;
+  }
+  .tpl-cover-yellow .head em{font-style:italic;}
+  .tpl-cover-yellow .head .ink{color:var(--ink);}
+  .tpl-cover-yellow .sub{
+    font-family:var(--font-serif); font-style:italic;
+    font-size:36px; line-height:1.32; color:rgba(26,25,24,.82); margin:0; max-width:880px;
+  }
+  .tpl-cover-yellow .hint{
+    align-self:flex-end; margin-right:20px;
+    font-family:var(--font-display); font-weight:900; font-size:38px;
+    letter-spacing:.08em; text-transform:uppercase; color:var(--ink);
+  }
+
+  /* ===== Cover (dark) ===== */
+  .tpl-cover-dark{
+    background:
+      radial-gradient(ellipse 900px 480px at 70% 35%, rgba(250,204,21,.10), transparent 60%),
+      linear-gradient(135deg, #0F0E0D 0%, #1A1918 60%, #221F1C 100%);
+    color:#fff;
+    padding:96px 80px 160px;
+    display:flex; flex-direction:column; gap:30px; justify-content:center;
+  }
+  .tpl-cover-dark .eyebrowYel{
+    align-self:flex-start; background:var(--yellow); color:var(--ink);
+    padding:10px 16px; font-family:var(--font-display); font-weight:800;
+    font-size:18px; letter-spacing:.28em; text-transform:uppercase;
+  }
+  .tpl-cover-dark .head{
+    font-family:var(--font-display); font-weight:900;
+    font-size:116px; line-height:.95; letter-spacing:-.03em;
+    text-transform:uppercase; margin:0; max-width:920px;
+  }
+  .tpl-cover-dark .head em{font-style:italic;}
+  .tpl-cover-dark .head .yel{color:var(--yellow);}
+  .tpl-cover-dark .sub{
+    font-family:var(--font-serif); font-style:italic;
+    font-size:34px; line-height:1.32; color:#E7DFCE; margin:0; max-width:880px;
+  }
+  .tpl-cover-dark .hint{
+    align-self:flex-end; margin-right:20px;
+    font-family:var(--font-display); font-weight:900; font-size:38px;
+    letter-spacing:.08em; text-transform:uppercase; color:var(--yellow);
+  }
+
+  /* ===== Bullet (dark) ===== */
+  .tpl-bullet-dark{
+    background:
+      radial-gradient(ellipse 900px 480px at 10% 10%, rgba(250,204,21,.08), transparent 60%),
+      linear-gradient(135deg, #0F0E0D 0%, #1A1918 100%);
+    color:#fff;
+    padding:96px 80px 160px;
+    display:flex; flex-direction:column; gap:28px;
+  }
+  .tpl-bullet-dark .top{display:flex; align-items:center; gap:22px;}
+  .tpl-bullet-dark .num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:120px; height:120px; background:var(--yellow); color:var(--ink);
+    border:3px solid var(--ink); box-shadow:8px 8px 0 0 var(--yellow);
+    font-family:var(--font-display); font-weight:900; font-size:82px;
+  }
+  .tpl-bullet-dark .title{
+    font-family:var(--font-display); font-weight:900; font-size:48px;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--yellow);
+  }
+  .tpl-bullet-dark .head{
+    font-family:var(--font-display); font-weight:900;
+    font-size:88px; line-height:.95; letter-spacing:-.03em;
+    text-transform:uppercase; margin:0; max-width:920px;
+  }
+  .tpl-bullet-dark .head em{font-style:italic;}
+  .tpl-bullet-dark .head .yel{color:var(--yellow);}
+  .tpl-bullet-dark .bullets{
+    list-style:none; padding:0; margin:10px 0 0;
+    display:flex; flex-direction:column; gap:22px;
+  }
+  .tpl-bullet-dark .bullets li{
+    font-family:var(--font-display); font-weight:700; font-size:30px;
+    letter-spacing:-.01em; line-height:1.2;
+    color:#E7DFCE;
+    padding-left:58px; position:relative;
+  }
+  .tpl-bullet-dark .bullets li::before{
+    content:""; position:absolute; left:0; top:2px;
+    width:36px; height:36px; background:var(--yellow);
+    clip-path:polygon(12% 44%, 0 60%, 38% 96%, 100% 22%, 84% 6%, 38% 62%);
+  }
+
+  /* ===== CTA w/ photo ===== */
+  .tpl-cta-photo{
+    color:#fff;
+    padding:96px 80px 160px;
+    display:flex; flex-direction:column; gap:28px; justify-content:center;
+  }
+  .tpl-cta-photo .bgphoto{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
+    filter:grayscale(.3) contrast(.95);
+  }
+  .tpl-cta-photo .scrim{
+    position:absolute; inset:0; z-index:1;
+    background:linear-gradient(135deg, rgba(26,25,24,.82) 0%, rgba(26,25,24,.55) 100%);
+  }
+  .tpl-cta-photo .content{position:relative; z-index:2; display:flex; flex-direction:column; gap:28px;}
+  .tpl-cta-photo .top{display:flex; align-items:center; gap:22px;}
+  .tpl-cta-photo .num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:120px; height:120px; background:var(--yellow); color:var(--ink);
+    border:3px solid var(--ink); box-shadow:8px 8px 0 0 var(--yellow);
+    font-family:var(--font-display); font-weight:900; font-size:82px;
+  }
+  .tpl-cta-photo .title{
+    font-family:var(--font-display); font-weight:900; font-size:48px;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--yellow);
+  }
+  .tpl-cta-photo .head{
+    font-family:var(--font-display); font-weight:900;
+    font-size:96px; line-height:.95; letter-spacing:-.03em;
+    text-transform:uppercase; margin:0; max-width:920px;
+  }
+  .tpl-cta-photo .head em{font-style:italic;}
+  .tpl-cta-photo .head .yel{color:var(--yellow);}
+  .tpl-cta-photo .ctaRow{display:flex; align-items:center; gap:28px; flex-wrap:wrap; margin-top:10px;}
+  .tpl-cta-photo .ctaBtn{
+    font-family:var(--font-display); font-weight:800; font-size:32px;
+    letter-spacing:.08em; text-transform:uppercase;
+    background:var(--yellow); color:var(--ink);
+    padding:22px 32px; border:3px solid var(--ink);
+    box-shadow:10px 10px 0 0 var(--ink);
+  }
+  .tpl-cta-photo .url{
+    font-family:var(--font-display); font-weight:700; font-size:24px;
+    letter-spacing:.22em; text-transform:uppercase; color:var(--yellow);
+  }
+  .tpl-cta-photo .url::before{content:"→ ";}
+
+  /* ===== CTA dark (no photo) ===== */
+  .tpl-cta-dark{
+    background:
+      radial-gradient(ellipse 1000px 600px at 50% 40%, rgba(250,204,21,.14), transparent 60%),
+      linear-gradient(135deg, #0F0E0D 0%, #1A1918 100%);
+    color:#fff;
+    padding:96px 80px 160px;
+    display:flex; flex-direction:column; gap:36px; justify-content:center;
+  }
+  .tpl-cta-dark .eyebrowYel{
+    align-self:flex-start; background:var(--yellow); color:var(--ink);
+    padding:10px 16px; font-family:var(--font-display); font-weight:800;
+    font-size:18px; letter-spacing:.28em; text-transform:uppercase;
+  }
+  .tpl-cta-dark .head{
+    font-family:var(--font-display); font-weight:900;
+    font-size:108px; line-height:.95; letter-spacing:-.03em;
+    text-transform:uppercase; margin:0; max-width:920px;
+  }
+  .tpl-cta-dark .head em{font-style:italic;}
+  .tpl-cta-dark .head .yel{color:var(--yellow);}
+  .tpl-cta-dark .ctaRow{display:flex; align-items:center; gap:28px; flex-wrap:wrap;}
+  .tpl-cta-dark .ctaBtn{
+    font-family:var(--font-display); font-weight:800; font-size:32px;
+    letter-spacing:.06em; text-transform:uppercase;
+    background:var(--yellow); color:var(--ink);
+    padding:22px 32px; border:3px solid var(--ink);
+    box-shadow:10px 10px 0 0 var(--ink);
+  }
+  .tpl-cta-dark .url{
+    font-family:var(--font-display); font-weight:700; font-size:24px;
+    letter-spacing:.22em; text-transform:uppercase; color:var(--yellow);
+  }
+  .tpl-cta-dark .url::before{content:"→ ";}
+
+  /* ===== Case photo (split 50/50) ===== */
+  .tpl-case-photo{
+    background:var(--ink); color:#fff;
+    display:grid; grid-template-columns:1fr 1fr;
+  }
+  .tpl-case-photo .photo-half{position:relative; overflow:hidden;}
+  .tpl-case-photo .photo-half img{
+    width:100%; height:100%; object-fit:cover;
+    filter:grayscale(.15) contrast(1.02);
+  }
+  .tpl-case-photo .photo-half::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, transparent 60%, rgba(26,25,24,.3) 100%);
+    pointer-events:none;
+  }
+  .tpl-case-photo .copy-half{
+    padding:80px 68px 160px; display:flex; flex-direction:column; gap:22px;
+    justify-content:center; position:relative;
+  }
+  .tpl-case-photo .industry{
+    align-self:flex-start; background:var(--yellow); color:var(--ink);
+    padding:8px 14px; font-family:var(--font-display); font-weight:900;
+    font-size:22px; letter-spacing:.3em; text-transform:uppercase;
+  }
+  .tpl-case-photo .client{
+    font-family:var(--font-display); font-weight:700; font-size:28px;
+    letter-spacing:.14em; text-transform:uppercase; color:#E7DFCE;
+  }
+  .tpl-case-photo .head{
+    font-family:var(--font-display); font-weight:900;
+    font-size:76px; line-height:.95; letter-spacing:-.025em;
+    text-transform:uppercase; margin:0;
+  }
+  .tpl-case-photo .head em{font-style:italic;}
+  .tpl-case-photo .head .yel{color:var(--yellow);}
+  .tpl-case-photo .stat-row{
+    display:flex; align-items:flex-end; gap:24px;
+    border-top:3px solid var(--yellow); padding-top:22px; margin-top:12px;
+  }
+  .tpl-case-photo .stat{
+    font-family:var(--font-display); font-weight:900; font-size:140px;
+    line-height:.9; letter-spacing:-.04em; color:var(--yellow);
+  }
+  .tpl-case-photo .statLabel{
+    font-family:var(--font-serif); font-style:italic; font-size:26px;
+    color:#E7DFCE; line-height:1.25; max-width:360px; padding-bottom:18px;
+  }
+  .tpl-case-photo .slide-chrome{left:50%; margin-left:28px; right:64px;}
+
+  /* ===== Big stat (yellow) ===== */
+  .tpl-bigstat-yellow{
+    background:var(--yellow); color:var(--ink);
+    padding:96px 80px 160px;
+    display:flex; flex-direction:column; justify-content:center; gap:28px;
+  }
+  .tpl-bigstat-yellow .kicker{
+    display:inline-flex; align-items:center; gap:14px;
+    font-family:var(--font-display); font-weight:700; font-size:22px;
+    letter-spacing:.28em; text-transform:uppercase; color:var(--ink);
+  }
+  .tpl-bigstat-yellow .kicker .dot{width:14px; height:14px; background:var(--ink);}
+  .tpl-bigstat-yellow .stat{
+    font-family:var(--font-display); font-weight:900; font-size:520px;
+    line-height:.82; letter-spacing:-.05em; margin:0;
+  }
+  .tpl-bigstat-yellow .stat .unit{font-size:200px; vertical-align:super; margin-left:10px;}
+  .tpl-bigstat-yellow .label{
+    font-family:var(--font-display); font-weight:800; font-size:52px;
+    line-height:1.05; letter-spacing:-.02em; text-transform:uppercase;
+    margin-top:18px; max-width:880px;
+  }
+
+  /* ===== Big stat (dark) ===== */
+  .tpl-bigstat-dark{
+    background:
+      radial-gradient(ellipse 1200px 700px at 50% 45%, rgba(250,204,21,.12), transparent 60%),
+      linear-gradient(135deg, #0F0E0D 0%, #1A1918 100%);
+    color:#fff;
+    padding:96px 80px 160px;
+    display:flex; flex-direction:column; justify-content:center; gap:28px;
+  }
+  .tpl-bigstat-dark .kicker{
+    display:inline-flex; align-items:center; gap:14px;
+    font-family:var(--font-display); font-weight:700; font-size:22px;
+    letter-spacing:.28em; text-transform:uppercase; color:#C8C2B8;
+  }
+  .tpl-bigstat-dark .kicker .dot{width:14px; height:14px; background:var(--yellow);}
+  .tpl-bigstat-dark .stat{
+    font-family:var(--font-display); font-weight:900; font-size:460px;
+    line-height:.82; letter-spacing:-.05em; margin:0; color:var(--yellow);
+  }
+  .tpl-bigstat-dark .stat .unit{font-size:180px; vertical-align:super; margin-left:10px;}
+  .tpl-bigstat-dark .label{
+    font-family:var(--font-display); font-weight:800; font-size:52px;
+    line-height:1.05; letter-spacing:-.02em; text-transform:uppercase;
+    margin-top:18px; max-width:880px; color:#fff;
+  }
+
+  /* ===== Photo overlay ===== */
+  .tpl-photo-overlay{
+    color:#fff;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    padding:0;
+  }
+  .tpl-photo-overlay .bgphoto{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
+  }
+  .tpl-photo-overlay .scrim{
+    position:absolute; inset:0; z-index:1;
+    background:linear-gradient(180deg, rgba(26,25,24,.22) 0%, rgba(26,25,24,.86) 75%, rgba(26,25,24,.96) 100%);
+  }
+  .tpl-photo-overlay .content{
+    position:relative; z-index:2;
+    padding:0 80px 160px;
+    display:flex; flex-direction:column; gap:22px;
+  }
+  .tpl-photo-overlay .tag{
+    align-self:flex-start; background:var(--yellow); color:var(--ink);
+    padding:10px 16px; font-family:var(--font-display); font-weight:800;
+    font-size:18px; letter-spacing:.28em; text-transform:uppercase;
+  }
+  .tpl-photo-overlay .head{
+    font-family:var(--font-display); font-weight:900;
+    font-size:108px; line-height:.95; letter-spacing:-.03em;
+    text-transform:uppercase; margin:0; max-width:920px;
+  }
+  .tpl-photo-overlay .head em{font-style:italic; color:var(--yellow);}
+  .tpl-photo-overlay .sub{
+    font-family:var(--font-serif); font-style:italic; font-size:30px;
+    line-height:1.32; color:#E7DFCE; margin:0; max-width:820px;
+  }
+
+  /* ===== Founder quote ===== */
+  .tpl-founder-quote{
+    background:var(--paper); color:var(--ink);
+    display:grid; grid-template-columns:440px 1fr;
+  }
+  .tpl-founder-quote .photo-col{
+    position:relative; overflow:hidden;
+    background:var(--ink);
+    border-right:4px solid var(--yellow);
+  }
+  .tpl-founder-quote .photo-col img{
+    width:100%; height:100%; object-fit:cover;
+    filter:grayscale(.2) contrast(1.02);
+  }
+  .tpl-founder-quote .copy-col{
+    padding:80px 64px 160px; display:flex; flex-direction:column; gap:20px;
+    justify-content:center; position:relative;
+  }
+  .tpl-founder-quote .quotemark{
+    font-family:var(--font-serif); font-style:italic; font-weight:700;
+    font-size:220px; line-height:.6; color:var(--yellow); margin:0 0 -30px;
+  }
+  .tpl-founder-quote .quote{
+    font-family:var(--font-serif); font-style:italic; font-weight:400;
+    font-size:52px; line-height:1.2; color:var(--ink); margin:0; max-width:700px;
+  }
+  .tpl-founder-quote .quote b{font-weight:700; color:var(--forge);}
+  .tpl-founder-quote .attrib{
+    display:flex; align-items:center; gap:18px; margin-top:16px;
+  }
+  .tpl-founder-quote .attrib .bar{width:60px; height:4px; background:var(--ink);}
+  .tpl-founder-quote .attrib .who{
+    display:block;
+    font-family:var(--font-display); font-weight:900; font-size:24px;
+    letter-spacing:.14em; text-transform:uppercase;
+  }
+  .tpl-founder-quote .attrib .role{
+    display:block; color:var(--gray);
+    font-family:var(--font-display); font-weight:700; font-size:16px;
+    letter-spacing:.2em; text-transform:uppercase; margin-top:4px;
+  }
+  .tpl-founder-quote .slide-chrome{left:calc(440px + 64px);}
+</style>
+</head>
+<body>
+
+<header class="page-head">
+  <span class="eyebrow">Social Carousels · 2026 · First 3 Examples</span>
+  <h1>3 Carousels. <em>One voice.</em> <span class="yel">Real stories.</span></h1>
+  <p class="sub">Multi-slide posts built on the BB system. Swipe each row to preview every slide (1080&times;1080). Caption with hashtags below each carousel.</p>
+</header>
+
+<main class="wrap">
+
+    <section class="carousel">
+      <div class="meta">
+        <span class="wk">Week 04 · Jan 26</span>
+        <span class="title">PLAN · The 4 Blueprints</span>
+        <span class="tag">Pillar · Carousel</span>
+      </div>
+      <div class="track"><div class="slide-wrap"><div class="slide tpl-cover-yellow">
+          <div class="pillarBadge">PILLAR 1</div>
+          <h2 class="head"><em>Plan</em> before <span class="ink">you build.</span></h2>
+          <p class="sub">Every growth play starts with one messaging document. Swipe for the 4 blueprints.</p>
+          <div class="hint">Swipe →</div>
+          
+      <div class="slide-chrome">
+        <span class="counter" style="color:rgba(26,25,24,.5)">01 / 05</span>
+        <img class="mark" src="assets/logo-primary.png" alt="" style="filter:none">
+      </div>
+        </div></div><div class="slide-wrap"><div class="slide tpl-bullet-dark">
+          <div class="bg-grid"></div><div class="wm">BB</div>
+          <div class="top">
+            <span class="num">01</span>
+            <span class="title">MESSAGING</span>
+          </div>
+          <h3 class="head">Get your <span class="yel">one-liner</span>, <span class="yel">BrandScript</span>, and <span class="yel">elevator pitch</span>.</h3>
+          <ul class="bullets"><li>A one-sentence pitch anyone can repeat</li><li>A StoryBrand 7-part BrandScript</li><li>Homepage copy that converts</li></ul>
+          
+      <div class="slide-chrome">
+        <span class="counter" style="color:rgba(250,204,21,.9)">02 / 05</span>
+        <img class="mark" src="assets/logo-primary.png" alt="" style="filter:invert(1)">
+      </div>
+        </div></div><div class="slide-wrap"><div class="slide tpl-bullet-dark">
+          <div class="bg-grid"></div><div class="wm">BB</div>
+          <div class="top">
+            <span class="num">02</span>
+            <span class="title">WEBSITE</span>
+          </div>
+          <h3 class="head">A <span class="yel">wireframe</span> you can ship.</h3>
+          <ul class="bullets"><li>StoryBrand-aligned home + service pages</li><li>Primary CTA on every page</li><li>Conversion-ready lead forms</li></ul>
+          
+      <div class="slide-chrome">
+        <span class="counter" style="color:rgba(250,204,21,.9)">03 / 05</span>
+        <img class="mark" src="assets/logo-primary.png" alt="" style="filter:invert(1)">
+      </div>
+        </div></div><div class="slide-wrap"><div class="slide tpl-bullet-dark">
+          <div class="bg-grid"></div><div class="wm">BB</div>
+          <div class="top">
+            <span class="num">03</span>
+            <span class="title">CONTENT</span>
+          </div>
+          <h3 class="head">A <span class="yel">12-month</span> content engine.</h3>
+          <ul class="bullets"><li>One pillar topic per month</li><li>Email, video, and blog calendar</li><li>Written by a human (we promise)</li></ul>
+          
+      <div class="slide-chrome">
+        <span class="counter" style="color:rgba(250,204,21,.9)">04 / 05</span>
+        <img class="mark" src="assets/logo-primary.png" alt="" style="filter:invert(1)">
+      </div>
+        </div></div><div class="slide-wrap"><div class="slide tpl-cta-photo">
+          <img class="bgphoto" src="photos/BB-2023-Office-Content-Shoot-6961-2048x1152_1754613884042.jpg" alt="Business Builders office, St. Augustine, FL">
+          <div class="scrim"></div>
+          <div class="content">
+            <div class="top">
+              <span class="num">04</span>
+              <span class="title">MARKETING</span>
+            </div>
+            <h3 class="head">Your <span class="yel">one-page</span> growth plan.</h3>
+            <div class="ctaRow">
+              <a class="ctaBtn">Book a planning session →</a>
+              <span class="url">bbuilders.com</span>
+            </div>
+          </div>
+          
+      <div class="slide-chrome">
+        <span class="counter" style="color:rgba(250,204,21,.9)">05 / 05</span>
+        <img class="mark" src="assets/logo-primary.png" alt="" style="filter:invert(1)">
+      </div>
+        </div></div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">We sell four blueprints before we sell a single deliverable.<br><br>Because without them, everything else is guessing.<br><br>Swipe → Messaging / Website / Content / Marketing.<br>Book a planning session: bbuilders.com</div>
+        <div class="tags">#MarketingPlan #StoryBrand #Strategy #Blueprint</div>
+      </div>
+    </section>
+
+    <section class="carousel">
+      <div class="meta">
+        <span class="wk">Week 08 · Feb 23</span>
+        <span class="title">9 Industries, One Playbook</span>
+        <span class="tag">Industry · Carousel</span>
+      </div>
+      <div class="track"><div class="slide-wrap"><div class="slide tpl-cover-dark">
+          <div class="bg-grid"></div><div class="wm">BB</div>
+          <span class="eyebrowYel">How we help you grow</span>
+          <h2 class="head"><em>Industry specialists.</em> <span class="yel">Not generalists.</span></h2>
+          <p class="sub">4 real clients across 4 industries. Same playbook, calibrated to the buyer.</p>
+          <div class="hint">Swipe →</div>
+          
+      <div class="slide-chrome">
+        <span class="counter" style="color:rgba(250,204,21,.9)">01 / 05</span>
+        <img class="mark" src="assets/logo-primary.png" alt="" style="filter:invert(1)">
+      </div>
+        </div></div><div class="slide-wrap"><div class="slide tpl-case-photo">
+          <div class="photo-half"><img src="photos/inspire-nurse-leaders.png" alt="Inspire Nurse Leaders"></div>
+          <div class="copy-half">
+            <span class="industry">HEALTHCARE</span>
+            <span class="client">Inspire Nurse Leaders</span>
+            <h3 class="head">From <span class="yel">unknown</span> to <span class="yel">sold-out cohorts.</span></h3>
+            <div class="stat-row">
+              <span class="stat">4×</span>
+              <span class="statLabel">Enrollment growth in 18 mo.</span>
+            </div>
+          </div>
+          
+      <div class="slide-chrome">
+        <span class="counter" style="color:rgba(250,204,21,.9)">02 / 05</span>
+        <img class="mark" src="assets/logo-primary.png" alt="" style="filter:invert(1)">
+      </div>
+        </div></div><div class="slide-wrap"><div class="slide tpl-case-photo">
+          <div class="photo-half"><img src="photos/st-johns-sheriff.jpg" alt="St. Johns County Sheriff's Office"></div>
+          <div class="copy-half">
+            <span class="industry">PUBLIC SECTOR</span>
+            <span class="client">St. Johns County Sheriff's Office</span>
+            <h3 class="head">A brand <span class="yel">the community</span> trusts.</h3>
+            <div class="stat-row">
+              <span class="stat">32%</span>
+              <span class="statLabel">Lift in recruiting applications.</span>
+            </div>
+          </div>
+          
+      <div class="slide-chrome">
+        <span class="counter" style="color:rgba(250,204,21,.9)">03 / 05</span>
+        <img class="mark" src="assets/logo-primary.png" alt="" style="filter:invert(1)">
+      </div>
+        </div></div><div class="slide-wrap"><div class="slide tpl-case-photo">
+          <div class="photo-half"><img src="photos/breakwater-construction-case-study.png" alt="Breakwater Construction"></div>
+          <div class="copy-half">
+            <span class="industry">CONSTRUCTION</span>
+            <span class="client">Breakwater Construction</span>
+            <h3 class="head">Premium projects. <span class="yel">Premium leads.</span></h3>
+            <div class="stat-row">
+              <span class="stat">2.5×</span>
+              <span class="statLabel">Qualified project inquiries YoY.</span>
+            </div>
+          </div>
+          
+      <div class="slide-chrome">
+        <span class="counter" style="color:rgba(250,204,21,.9)">04 / 05</span>
+        <img class="mark" src="assets/logo-primary.png" alt="" style="filter:invert(1)">
+      </div>
+        </div></div><div class="slide-wrap"><div class="slide tpl-cta-dark">
+          <div class="bg-grid"></div><div class="wm">BB</div>
+          <span class="eyebrowYel">Your industry next?</span>
+          <h3 class="head">We know <em>your buyer</em>. <span class="yel">Before day one.</span></h3>
+          <div class="ctaRow">
+            <a class="ctaBtn">See full case studies →</a>
+            <span class="url">bbuilders.com/portfolio</span>
+          </div>
+          
+      <div class="slide-chrome">
+        <span class="counter" style="color:rgba(250,204,21,.9)">05 / 05</span>
+        <img class="mark" src="assets/logo-primary.png" alt="" style="filter:invert(1)">
+      </div>
+        </div></div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">26 years. 1000+ clients. A handful of industries where we&#x27;ve seen every buyer objection before.<br><br>Swipe → 4 real client stories across 4 industries.<br><br>Your industry next? bbuilders.com</div>
+        <div class="tags">#CaseStudy #IndustryExperts #Agency #StoryBrand</div>
+      </div>
+    </section>
+
+    <section class="carousel">
+      <div class="meta">
+        <span class="wk">Week 29 · Jul 19</span>
+        <span class="title">26 Years. 1000+ Clients.</span>
+        <span class="tag">Trust · Carousel</span>
+      </div>
+      <div class="track"><div class="slide-wrap"><div class="slide tpl-bigstat-yellow">
+          <span class="kicker"><span class="dot"></span>Trust compounds</span>
+          <div class="stat">26<span class="unit">YRS</span></div>
+          <div class="label">Since 2000. One mission. One team.</div>
+          
+      <div class="slide-chrome">
+        <span class="counter" style="color:rgba(26,25,24,.5)">01 / 05</span>
+        <img class="mark" src="assets/logo-primary.png" alt="" style="filter:none">
+      </div>
+        </div></div><div class="slide-wrap"><div class="slide tpl-bigstat-dark">
+          <div class="bg-grid"></div><div class="wm">BB</div>
+          <span class="kicker"><span class="dot"></span>Built one relationship at a time</span>
+          <div class="stat">1000<span class="unit">+</span></div>
+          <div class="label">Businesses we've helped grow.</div>
+          
+      <div class="slide-chrome">
+        <span class="counter" style="color:rgba(250,204,21,.9)">02 / 05</span>
+        <img class="mark" src="assets/logo-primary.png" alt="" style="filter:invert(1)">
+      </div>
+        </div></div><div class="slide-wrap"><div class="slide tpl-photo-overlay">
+          <img class="bgphoto" src="photos/BB-2023-Office-Content-Shoot-6961-2048x1152_1754613884042.jpg" alt="">
+          <div class="scrim"></div>
+          <div class="content">
+            <span class="tag">Home Base</span>
+            <h3 class="head">Built in <em>St. Augustine, FL.</em></h3>
+            <p class="sub">An office full of operators, strategists, designers, and engineers who actually answer the phone.</p>
+          </div>
+          
+      <div class="slide-chrome">
+        <span class="counter" style="color:rgba(250,204,21,.9)">03 / 05</span>
+        <img class="mark" src="assets/logo-primary.png" alt="" style="filter:invert(1)">
+      </div>
+        </div></div><div class="slide-wrap"><div class="slide tpl-founder-quote">
+          <div class="photo-col"><img src="photos/team-jay-owen-new.jpg" alt="Jay Owen"></div>
+          <div class="copy-col">
+            <div class="quotemark">&ldquo;</div>
+            <p class="quote">We say yes to the partnerships where we can <b>move the needle</b>. Not every engagement — but every one we take.</p>
+            <div class="attrib">
+              <span class="bar"></span>
+              <div><span class="who">Jay Owen</span><span class="role">Founder · CEO</span></div>
+            </div>
+          </div>
+          
+      <div class="slide-chrome">
+        <span class="counter" style="color:rgba(26,25,24,.5)">04 / 05</span>
+        <img class="mark" src="assets/logo-primary.png" alt="" style="filter:none">
+      </div>
+        </div></div><div class="slide-wrap"><div class="slide tpl-cta-dark">
+          <div class="bg-grid"></div><div class="wm">BB</div>
+          <span class="eyebrowYel">Ready to grow up?</span>
+          <h3 class="head"><em>Inc. 5000 twice.</em> <span class="yel">Your turn.</span></h3>
+          <div class="ctaRow">
+            <a class="ctaBtn">Get a free marketing audit →</a>
+            <span class="url">bbuilders.com</span>
+          </div>
+          
+      <div class="slide-chrome">
+        <span class="counter" style="color:rgba(250,204,21,.9)">05 / 05</span>
+        <img class="mark" src="assets/logo-primary.png" alt="" style="filter:invert(1)">
+      </div>
+        </div></div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">We didn&#x27;t get to 1000 clients by being the cheapest.<br><br>We got here by being the partner that stays when the easy stuff is done.<br><br>Since 2000 · St. Augustine, FL · Inc. 5000 2× · StoryBrand Certified · HubSpot Platinum</div>
+        <div class="tags">#LongTermPartner #Agency #Growth #Inc5000</div>
+      </div>
+    </section>
+</main>
+
+<script>
+  function rescale(){
+    document.querySelectorAll(".slide-wrap").forEach(function(w){
+      var slide = w.querySelector(".slide");
+      if (!slide) return;
+      var s = w.clientWidth / 1080;
+      slide.style.transform = "scale(" + s + ")";
+    });
+  }
+  window.addEventListener("load", rescale);
+  window.addEventListener("resize", rescale);
+</script>
+</body>
+</html>
