@@ -1,0 +1,1294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BB Brand Kit 2026</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<style>
+  :root{
+    --page-w: 1100px;
+    --page-h: 1556px; /* ~A4 proportion at 1100 wide */
+    --ink: #1A1918;
+    --paper: #F7F5F2;
+    --paper-2: #FFFFFF;
+    --rule: #1A1918;
+  }
+
+  html,body{margin:0;background:#E7E3DD;color:var(--ink);font-family:var(--font-body);}
+  body{padding:40px 0;}
+
+  /* -------- Page shell -------- */
+  .page{
+    width:var(--page-w);
+    min-height:var(--page-h);
+    height:var(--page-h);
+    margin:0 auto 40px;
+    background:var(--paper-2);
+    box-shadow:0 2px 2px rgba(0,0,0,.04), 0 18px 40px rgba(0,0,0,.10);
+    position:relative;
+    overflow:hidden;
+    break-after:page;
+  }
+  .page.dark{background:var(--ink);color:#fff;}
+  .page.cream{background:var(--paper);}
+
+  .page-inner{
+    padding:64px 72px;
+    position:relative;
+    min-height:calc(var(--page-h) - 128px);
+  }
+
+  /* Running header + footer */
+  .rh, .rf{
+    position:absolute; left:72px; right:72px;
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:10px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--ink);
+  }
+  .page.dark .rh, .page.dark .rf{color:#D6D6D6;}
+  .rh{top:28px;}
+  .rf{bottom:28px;}
+  .rh .mark{height:14px;}
+  .rf .num{font-variant-numeric:tabular-nums;}
+
+  /* -------- Type helpers scoped to the kit -------- */
+  .kicker{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:11px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    display:inline-block;
+    background:var(--bb-yellow);
+    color:var(--ink);
+    padding:6px 10px 5px;
+  }
+  .page.dark .kicker{background:var(--bb-yellow);color:var(--ink);}
+  .kicker.ghost{background:transparent;color:inherit;border:1px solid currentColor;}
+
+  .title{
+    font-family:var(--font-display);
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:-.02em;
+    line-height:.96;
+    font-size:96px;
+    margin:18px 0 8px;
+  }
+  .title em{font-style:italic; font-weight:800;}
+  .title .hl{color:var(--bb-yellow);}
+  .title.small{font-size:64px;}
+
+  .standfirst{
+    font-family:var(--font-serif);
+    font-style:italic;
+    font-weight:400;
+    font-size:24px;
+    line-height:1.4;
+    color:var(--bb-gray);
+    max-width:720px;
+    margin:0;
+  }
+  .page.dark .standfirst{color:#C8C2B8;}
+
+  .body p{
+    font-family:var(--font-body);
+    font-size:15px;
+    line-height:1.65;
+    color:var(--bb-gray);
+    max-width:56ch;
+    margin:0 0 12px;
+  }
+  .page.dark .body p{color:#C8C2B8;}
+
+  .label{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:10px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--ink);
+  }
+  .page.dark .label{color:#fff;}
+
+  .hair{height:1px;background:currentColor;opacity:.15;border:0;margin:18px 0;}
+  .rule-top{border-top:1px solid var(--ink);}
+  .page.dark .rule-top{border-top-color:#fff;}
+
+  /* -------- Grids -------- */
+  .grid{display:grid; gap:24px;}
+  .g-2{grid-template-columns:1fr 1fr;}
+  .g-3{grid-template-columns:repeat(3,1fr);}
+  .g-4{grid-template-columns:repeat(4,1fr);}
+  .g-5{grid-template-columns:repeat(5,1fr);}
+
+  /* -------- COVER -------- */
+  .cover .page-inner{padding:0;}
+  .cover-wrap{
+    height:var(--page-h);
+    display:grid;
+    grid-template-rows: 120px 1fr 160px;
+    padding:64px 72px;
+    box-sizing:border-box;
+  }
+  .cover-top{display:flex; justify-content:space-between; align-items:flex-start;}
+  .cover-top .left{display:flex; flex-direction:column; gap:8px;}
+  .cover-top .mark{height:26px;}
+  .cover-top .meta{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:11px;
+    letter-spacing:.24em;
+    text-transform:uppercase;
+    color:#D6D6D6;
+  }
+  .cover-top .meta b{color:#fff;font-weight:700;}
+
+  .cover-mid{
+    align-self:center;
+    position:relative;
+  }
+  .cover-mid .big{
+    font-family:var(--font-display);
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:-.04em;
+    line-height:.84;
+    color:#fff;
+    font-size:178px;
+    margin:0;
+  }
+  .cover-mid .big .yel{color:var(--bb-yellow);}
+  .cover-mid .big em{font-style:italic;}
+  .cover-mid .anvil{
+    position:absolute; right:0; top:-24px;
+    height:130px;
+  }
+  .cover-mid .standfirst{
+    color:#E7DFCE;
+    margin-top:36px;
+    max-width:640px;
+    font-size:28px;
+  }
+
+  .cover-bot{
+    align-self:end;
+    display:flex; justify-content:space-between; align-items:flex-end;
+    color:#D6D6D6;
+    font-family:var(--font-display);
+    font-size:11px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+  }
+  .cover-bot .stamp{
+    border:1px solid var(--bb-yellow);
+    color:var(--bb-yellow);
+    padding:8px 14px;
+    letter-spacing:.3em;
+    font-weight:700;
+  }
+
+  /* -------- Section 1/2 split -------- */
+  .section-head{display:grid; grid-template-columns: 1.3fr 1fr; gap:48px; align-items:end;}
+
+  /* -------- Logo page -------- */
+  .logo-hero{
+    background:var(--paper);
+    border:1px solid var(--ink);
+    padding:72px 48px;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    box-shadow:var(--shadow-offset);
+  }
+  .logo-hero img{max-width:75%; height:auto; display:block;}
+
+  .logo-variants{margin-top:40px;}
+  .logo-tile{
+    border:1px solid var(--ink);
+    display:flex; flex-direction:column;
+  }
+  .logo-tile .canvas{
+    padding:22px 18px; display:flex; align-items:center; justify-content:center;
+    min-height:110px;
+  }
+  .logo-tile .canvas img{max-width:82%; max-height:80px; height:auto;}
+  .logo-tile .meta{
+    border-top:1px solid var(--ink);
+    padding:10px 14px;
+    display:flex; justify-content:space-between; align-items:center;
+    background:#fff;
+  }
+  .logo-tile .meta .name{font-family:var(--font-display); font-weight:700; font-size:11px; letter-spacing:.18em; text-transform:uppercase;}
+  .logo-tile .meta .kind{font-family:var(--font-display); font-weight:500; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#6B6B6B;}
+  .canvas.light{background:#fff;}
+  .canvas.cream{background:var(--paper);}
+  .canvas.dark{background:var(--ink);}
+  .canvas.yellow{background:var(--bb-yellow);}
+  .canvas.dark img{filter:invert(1);}
+
+  .clearspace{
+    position:relative;
+    background:var(--paper);
+    border:1px dashed var(--ink);
+    padding:40px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .clearspace .inner{
+    position:relative;
+    border:1px solid var(--ink);
+    padding:24px 32px;
+    background:#fff;
+  }
+  .clearspace .inner img{max-width:380px; display:block;}
+  .clearspace .tick{
+    position:absolute;
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:#6B6B6B;
+  }
+  .clearspace .tick.t{top:20px; left:50%; transform:translateX(-50%);}
+  .clearspace .tick.b{bottom:20px; left:50%; transform:translateX(-50%);}
+  .clearspace .tick.l{left:20px; top:50%; transform:translateY(-50%);}
+  .clearspace .tick.r{right:20px; top:50%; transform:translateY(-50%);}
+  .clearspace .x{
+    display:inline-block;
+    width:18px; height:18px;
+    background:var(--bb-yellow);
+    border:1px solid var(--ink);
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:11px;
+    text-align:center; line-height:18px;
+    margin:0 6px;
+    vertical-align:middle;
+  }
+
+  .dos{margin-top:36px;}
+  .dos .tile{
+    border:1px solid var(--ink);
+    background:#fff;
+    display:flex; flex-direction:column;
+  }
+  .dos .tile .canvas{min-height:100px; display:flex; align-items:center; justify-content:center; padding:12px;}
+  .dos .tile .canvas img{max-width:78%; max-height:70px;}
+  .dos .tile .legend{
+    border-top:1px solid var(--ink);
+    display:flex; align-items:center; gap:10px;
+    padding:10px 12px;
+    font-family:var(--font-display);
+    font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  }
+  .dos .tile .legend .mk{
+    width:18px; height:18px; border-radius:999px;
+    display:inline-flex; align-items:center; justify-content:center;
+    color:#fff; font-size:12px; font-weight:800; flex:0 0 auto;
+  }
+  .dos .tile.good .legend .mk{background:#16A34A;}
+  .dos .tile.bad  .legend .mk{background:#DC2626;}
+  .dos .tile.bad .canvas img{opacity:.95;}
+
+  /* stretch (do not) */
+  .bad-stretch img{transform:scaleY(.55) scaleX(1.25); transform-origin:center;}
+  /* outline */
+  .bad-outline img{filter: brightness(0) invert(1); background:#DC2626; padding:10px;}
+  /* rotate */
+  .bad-rotate img{transform:rotate(-8deg);}
+  /* recolor */
+  .bad-recolor img{filter:hue-rotate(280deg) saturate(2);}
+
+  /* -------- Color page -------- */
+  .swatch{
+    border:1px solid var(--ink);
+    display:flex; flex-direction:column;
+    overflow:hidden;
+  }
+  .swatch .chip{height:200px; position:relative;}
+  .swatch .chip .tok{
+    position:absolute; top:12px; left:14px;
+    font-family:var(--font-mono); font-size:11px;
+    background:rgba(255,255,255,.9); padding:3px 6px;
+    color:var(--ink);
+  }
+  .swatch.dark-chip .chip .tok{background:rgba(0,0,0,.65); color:#fff;}
+  .swatch .info{
+    padding:14px 16px 18px;
+    background:#fff;
+    border-top:1px solid var(--ink);
+  }
+  .swatch .info .name{font-family:var(--font-display); font-weight:800; font-size:18px; letter-spacing:-.01em; text-transform:uppercase;}
+  .swatch .info .vals{
+    display:flex; gap:14px; margin-top:6px;
+    font-family:var(--font-mono); font-size:11px; color:#505050;
+  }
+  .swatch .info .use{
+    margin-top:8px;
+    font-family:var(--font-body); font-size:13px; line-height:1.45; color:#505050;
+  }
+
+  .color-rules{
+    margin-top:40px;
+    display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px;
+  }
+  .color-rules .rule{
+    border:1px solid var(--ink);
+    padding:18px 20px;
+    background:#fff;
+  }
+  .color-rules .rule .cap{
+    font-family:var(--font-display); font-weight:700; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#6B6B6B;
+    margin-bottom:6px;
+  }
+  .color-rules .rule h4{
+    font-family:var(--font-display); font-weight:800; font-size:20px; text-transform:uppercase; letter-spacing:-.01em;
+    margin:0 0 8px;
+  }
+  .color-rules .rule p{font-size:13px; line-height:1.55; color:#505050; margin:0;}
+  .color-rules .rule .demo{height:54px; margin-top:12px; border:1px solid var(--ink); display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:800; font-size:13px; text-transform:uppercase; letter-spacing:.05em;}
+
+  /* -------- Type page -------- */
+  .type-row{
+    display:grid; grid-template-columns: 140px 1fr; gap:32px;
+    padding:22px 0;
+    border-top:1px solid var(--ink);
+  }
+  .type-row:last-child{border-bottom:1px solid var(--ink);}
+  .type-row .meta .t{font-family:var(--font-display); font-weight:700; font-size:11px; letter-spacing:.2em; text-transform:uppercase;}
+  .type-row .meta .s{font-family:var(--font-mono); font-size:11px; color:#6B6B6B; margin-top:4px;}
+  .sp-display{font-family:var(--font-display); font-weight:800; font-size:80px; line-height:.98; letter-spacing:-.02em; text-transform:uppercase; margin:0;}
+  .sp-h1{font-family:var(--font-display); font-weight:700; font-size:52px; line-height:1.04; letter-spacing:-.02em; text-transform:uppercase; margin:0;}
+  .sp-h3{font-family:var(--font-display); font-weight:700; font-size:28px; line-height:1.2; text-transform:uppercase; margin:0;}
+  .sp-eye{font-family:var(--font-display); font-weight:700; font-size:12px; line-height:1; letter-spacing:.22em; text-transform:uppercase; margin:0;}
+  .sp-serif{font-family:var(--font-serif); font-style:italic; font-size:22px; line-height:1.45; color:#505050; margin:0;}
+  .sp-body{font-family:var(--font-body); font-size:16px; line-height:1.6; color:#3A3A3A; margin:0; max-width:56ch;}
+  .sp-mono{font-family:var(--font-mono); font-size:13px; color:#505050; margin:0;}
+
+  .weights{margin-top:28px; display:grid; grid-template-columns: repeat(6, 1fr); gap:8px;}
+  .weights .w{
+    border:1px solid var(--ink); padding:14px 12px;
+    font-family:var(--font-display);
+    background:#fff;
+  }
+  .weights .w .aa{font-size:34px; line-height:1; letter-spacing:-.02em;}
+  .weights .w .nm{font-size:10px; letter-spacing:.2em; text-transform:uppercase; margin-top:8px; color:#6B6B6B;}
+  .weights .w.w3 .aa{font-weight:300;}
+  .weights .w.w4 .aa{font-weight:400;}
+  .weights .w.w5 .aa{font-weight:500;}
+  .weights .w.w6 .aa{font-weight:600;}
+  .weights .w.w7 .aa{font-weight:700;}
+  .weights .w.w8 .aa{font-weight:800;}
+
+  /* -------- Voice page -------- */
+  .voice-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:32px;}
+  .voice-card{
+    border:1px solid #fff;
+    padding:22px 24px;
+    background:#1F1E1D;
+  }
+  .voice-card .cap{font-family:var(--font-display); font-weight:700; font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--bb-yellow); margin-bottom:8px;}
+  .voice-card h4{font-family:var(--font-display); font-weight:800; text-transform:uppercase; font-size:22px; letter-spacing:-.01em; margin:0 0 10px;}
+  .voice-card p{font-family:var(--font-body); font-size:14px; line-height:1.6; color:#C8C2B8; margin:0;}
+
+  .wewrite{
+    display:grid; grid-template-columns:1fr 1fr; gap:0;
+    border:1px solid #fff; margin-top:32px;
+  }
+  .wewrite .col{padding:22px 24px;}
+  .wewrite .col + .col{border-left:1px solid #fff;}
+  .wewrite .hd{display:flex; align-items:center; gap:10px; margin-bottom:12px;}
+  .wewrite .hd .mk{
+    width:22px; height:22px; border-radius:999px;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800; font-size:13px; color:#fff;
+    font-family:var(--font-display);
+  }
+  .wewrite .do  .mk{background:#16A34A;}
+  .wewrite .dont .mk{background:#DC2626;}
+  .wewrite .hd .lbl{font-family:var(--font-display); font-weight:700; font-size:11px; letter-spacing:.22em; text-transform:uppercase;}
+  .wewrite ul{margin:0; padding:0; list-style:none;}
+  .wewrite li{font-family:var(--font-body); font-size:14px; line-height:1.55; color:#E7DFCE; padding:10px 0; border-top:1px dashed #3A3937;}
+  .wewrite li:first-child{border-top:0;}
+  .wewrite .dont li{color:#B8B0A4;}
+  .wewrite li em{font-family:var(--font-serif); font-style:italic; color:#fff;}
+
+  .hl-patterns{margin-top:32px; display:grid; gap:12px;}
+  .hl-patterns .p{
+    border:1px solid #fff; padding:18px 22px; background:#1F1E1D;
+    font-family:var(--font-display); font-weight:800; text-transform:uppercase; letter-spacing:-.015em; line-height:1.06;
+    font-size:30px;
+  }
+  .hl-patterns .p .yel{color:var(--bb-yellow);}
+  .hl-patterns .p em{font-style:italic;}
+  .hl-patterns .p .num{display:inline-block; min-width:34px; color:var(--bb-yellow); font-size:14px; letter-spacing:.2em; margin-right:16px; vertical-align:middle;}
+
+  /* -------- Signature elements -------- */
+  .sig-grid{display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-top:28px;}
+  .sig-card{
+    background:var(--paper);
+    padding:40px;
+    border:1px solid var(--ink);
+    box-shadow:var(--shadow-offset);
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .sig-card h4{font-family:var(--font-display); font-weight:800; font-size:22px; text-transform:uppercase; letter-spacing:-.01em; margin:0;}
+  .sig-card p{font-family:var(--font-body); font-size:13.5px; line-height:1.6; color:#505050; margin:0;}
+  .sig-card .demo{flex:1; display:flex; align-items:center; justify-content:center; padding:20px 0; min-height:120px;}
+  .sig-card code{font-family:var(--font-mono); font-size:11px; background:#fff; border:1px solid var(--ink); padding:2px 6px;}
+
+  .pill-yel{display:inline-block; background:var(--bb-yellow); color:var(--ink); padding:8px 14px 7px;
+    font-family:var(--font-display); font-weight:700; font-size:12px; letter-spacing:.22em; text-transform:uppercase;}
+  .pill-blk{display:inline-block; background:var(--ink); color:#fff; padding:8px 14px 7px; border-radius:999px;
+    font-family:var(--font-display); font-weight:700; font-size:12px; letter-spacing:.22em; text-transform:uppercase;}
+
+  .btn-demo{
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--bb-yellow); color:var(--ink);
+    padding:14px 22px;
+    font-family:var(--font-display); font-weight:700; font-size:13px; letter-spacing:.12em; text-transform:uppercase;
+    border:1px solid var(--ink);
+    box-shadow:4px 4px 0 0 var(--ink);
+  }
+
+  .hlword{
+    font-family:var(--font-display); font-weight:800; font-size:44px; text-transform:uppercase; letter-spacing:-.02em; line-height:1;
+  }
+  .hlword .yel{color:var(--bb-yellow);}
+  .hlword em{font-style:italic;}
+
+  .anvil-demo{height:140px; width:auto;}
+
+  /* -------- Iconography -------- */
+  .icon-row{display:grid; grid-template-columns:repeat(6,1fr); gap:14px; margin-top:22px;}
+  .icon-box{
+    height:96px;
+    border:2px solid var(--bb-yellow);
+    display:flex; align-items:center; justify-content:center;
+    background:var(--ink);
+    color:var(--bb-yellow);
+  }
+  .icon-box.solid{background:var(--bb-yellow); color:var(--ink); border-color:var(--ink);}
+  .icon-box svg{width:42%; height:42%; stroke-width:2;}
+
+  .icon-spec{
+    display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:28px;
+  }
+  .icon-spec .card{border:1px solid var(--ink); padding:20px 22px;}
+  .icon-spec .card h4{font-family:var(--font-display); font-weight:800; font-size:16px; text-transform:uppercase; margin:0 0 6px; letter-spacing:-.005em;}
+  .icon-spec .card p{font-family:var(--font-body); font-size:13px; line-height:1.55; color:#505050; margin:0;}
+
+  /* -------- Imagery -------- */
+  .img-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:20px;}
+  .img-tile{
+    aspect-ratio:16/10;
+    border:1px solid var(--ink);
+    position:relative;
+    overflow:hidden;
+    display:flex; align-items:flex-end;
+    padding:12px;
+    color:#fff;
+    font-family:var(--font-display); font-weight:700; font-size:11px; letter-spacing:.2em; text-transform:uppercase;
+  }
+  .img-tile .lbl{position:relative; z-index:2;}
+  .img-tile::before{
+    content:""; position:absolute; inset:0; z-index:0;
+  }
+  .img-tile::after{
+    content:""; position:absolute; inset:0; z-index:1;
+    background:linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 55%);
+  }
+  .img-a::before{background:
+    radial-gradient(circle at 30% 30%, #6b5a3a 0%, transparent 45%),
+    radial-gradient(circle at 70% 80%, #3d3225 0%, transparent 50%),
+    linear-gradient(135deg, #8a7650 0%, #4b3f2b 100%);}
+  .img-b::before{background:
+    radial-gradient(circle at 60% 40%, #c9a86a 0%, transparent 50%),
+    linear-gradient(160deg, #5a4a2e 0%, #2b2318 100%);}
+  .img-c::before{background:
+    radial-gradient(circle at 40% 60%, #b9905a 0%, transparent 55%),
+    linear-gradient(135deg, #7a6036 0%, #2e2618 100%);}
+  .img-d::before{background:
+    radial-gradient(circle at 50% 40%, #e4c58d 0%, transparent 55%),
+    linear-gradient(160deg, #9e7d47 0%, #4a3a20 100%);}
+  .img-e::before{background:
+    radial-gradient(circle at 35% 55%, #8a7450 0%, transparent 50%),
+    linear-gradient(135deg, #554532 0%, #1f1a12 100%);}
+  .img-f::before{background:
+    radial-gradient(circle at 55% 35%, #cfa269 0%, transparent 50%),
+    linear-gradient(135deg, #7b6035 0%, #302618 100%);}
+
+  .img-rules{margin-top:24px;}
+  .img-rules .rules{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  .img-rules .col{border-top:1px solid var(--ink); padding-top:14px;}
+  .img-rules .lb{font-family:var(--font-display); font-weight:700; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:#6B6B6B; margin-bottom:10px;}
+  .img-rules ul{margin:0; padding:0; list-style:none;}
+  .img-rules li{font-family:var(--font-body); font-size:13.5px; line-height:1.6; color:#3A3A3A; padding:8px 0;}
+  .img-rules li::before{content:"— "; color:#9a9a9a;}
+
+  /* -------- Applied: social -------- */
+  .social{display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-top:22px;}
+  .post{
+    aspect-ratio:1/1;
+    border:1px solid var(--ink);
+    position:relative;
+    overflow:hidden;
+    padding:22px;
+    display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .post.a{background:var(--ink); color:#fff;}
+  .post.b{background:var(--bb-yellow); color:var(--ink);}
+  .post.c{background:var(--paper); color:var(--ink);}
+
+  .post .hd{display:flex; justify-content:space-between; align-items:center;}
+  .post .hd .mk{height:16px;}
+  .post .hd .tag{font-family:var(--font-display); font-weight:700; font-size:10px; letter-spacing:.22em; text-transform:uppercase;}
+  .post.a .hd .tag{color:var(--bb-yellow);}
+  .post .h{
+    font-family:var(--font-display); font-weight:800;
+    text-transform:uppercase; letter-spacing:-.02em; line-height:.95;
+    font-size:30px; margin:0;
+  }
+  .post .h em{font-style:italic;}
+  .post .h .yel{color:var(--bb-yellow);}
+  .post .foot{display:flex; justify-content:space-between; align-items:flex-end;}
+  .post .foot .url{font-family:var(--font-display); font-weight:600; font-size:10px; letter-spacing:.2em; text-transform:uppercase;}
+  .post .foot .cta{font-family:var(--font-display); font-weight:700; font-size:11px; letter-spacing:.2em; text-transform:uppercase;}
+
+  /* -------- Stationery -------- */
+  .card-stage{
+    margin-top:22px;
+    background:var(--paper);
+    border:1px solid var(--ink);
+    padding:36px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:28px;
+  }
+  .biz{
+    aspect-ratio: 3.5/2;
+    border:1px solid var(--ink);
+    box-shadow:var(--shadow-offset);
+    position:relative;
+    padding:22px;
+    display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .biz.front{background:#fff; color:var(--ink);}
+  .biz.back {background:var(--ink); color:#fff;}
+  .biz.front .mk{height:22px;}
+  .biz.front .who{
+    font-family:var(--font-display); font-weight:800; font-size:18px; text-transform:uppercase; letter-spacing:-.01em;
+  }
+  .biz.front .role{
+    font-family:var(--font-serif); font-style:italic; font-size:13px; color:#6B6B6B; margin-top:2px;
+  }
+  .biz.front .cont{
+    font-family:var(--font-body); font-size:10.5px; line-height:1.55; color:#3A3A3A;
+  }
+  .biz.front .strip{
+    position:absolute; right:22px; top:22px; bottom:22px; width:6px; background:var(--bb-yellow);
+  }
+  .biz.back .big{
+    font-family:var(--font-display); font-weight:800; text-transform:uppercase; font-size:28px; letter-spacing:-.02em; line-height:1;
+  }
+  .biz.back .big .yel{color:var(--bb-yellow);}
+  .biz.back .anvil{height:36px; filter:invert(1);}
+
+  .letter-row{display:grid; grid-template-columns:1.2fr 1fr; gap:24px; margin-top:22px;}
+  .letter{
+    aspect-ratio: 8.5/11;
+    max-height:560px;
+    border:1px solid var(--ink);
+    background:#fff;
+    padding:28px 32px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:var(--shadow-offset);
+  }
+  .letter .hd{display:flex; justify-content:space-between; align-items:flex-start;}
+  .letter .hd .mk{height:22px;}
+  .letter .hd .meta{font-family:var(--font-display); font-weight:600; font-size:9px; letter-spacing:.22em; text-transform:uppercase; color:#6B6B6B; text-align:right; line-height:1.5;}
+  .letter .yelbar{height:4px; background:var(--bb-yellow); margin:18px 0 22px;}
+  .letter .date{font-family:var(--font-mono); font-size:10px; color:#6B6B6B;}
+  .letter .who{font-family:var(--font-display); font-weight:700; font-size:11px; letter-spacing:.16em; text-transform:uppercase; margin:16px 0 6px;}
+  .letter p{font-family:var(--font-body); font-size:9.5px; line-height:1.7; color:#3A3A3A; margin:0 0 8px;}
+  .letter .sig{font-family:var(--font-serif); font-style:italic; font-size:14px; color:var(--ink); margin-top:10px;}
+  .letter .foot{position:absolute; left:40px; right:40px; bottom:24px; display:flex; justify-content:space-between; font-family:var(--font-display); font-size:8px; letter-spacing:.2em; text-transform:uppercase; color:#6B6B6B; border-top:1px solid var(--ink); padding-top:8px;}
+
+  .emailsig{
+    border:1px solid var(--ink); padding:20px 24px; background:#fff;
+    display:grid; grid-template-columns: 84px 1fr; gap:20px; align-items:center;
+  }
+  .emailsig .avatar{
+    width:84px; height:84px; border:1px solid var(--ink);
+    background:
+      radial-gradient(circle at 50% 40%, #c9a86a 0%, transparent 55%),
+      linear-gradient(160deg, #5a4a2e 0%, #2b2318 100%);
+  }
+  .emailsig .info .nm{font-family:var(--font-display); font-weight:800; font-size:16px; text-transform:uppercase; letter-spacing:-.005em;}
+  .emailsig .info .rl{font-family:var(--font-serif); font-style:italic; font-size:13px; color:#6B6B6B; margin-bottom:6px;}
+  .emailsig .info .row{font-family:var(--font-body); font-size:11.5px; color:#3A3A3A; line-height:1.7;}
+  .emailsig .info .row b{color:var(--ink);}
+  .emailsig .info .row .y{color:#9a7200;}
+  .emailsig .info .mk{height:14px; margin-top:8px;}
+
+  /* ------- Big numbers on back page / TOC ------- */
+  .toc{margin-top:40px;}
+  .toc .row{
+    display:grid; grid-template-columns:72px 1fr 80px;
+    gap:24px; align-items:center;
+    padding:14px 0;
+    border-top:1px solid var(--ink);
+    font-family:var(--font-display);
+  }
+  .toc .row:last-child{border-bottom:1px solid var(--ink);}
+  .toc .n{font-weight:800; font-size:22px; letter-spacing:-.01em;}
+  .toc .t{font-weight:700; text-transform:uppercase; font-size:18px; letter-spacing:-.005em;}
+  .toc .t .sub{font-family:var(--font-serif); font-style:italic; font-weight:400; color:#6B6B6B; text-transform:none; font-size:14px; margin-left:10px; letter-spacing:0;}
+  .toc .p{font-variant-numeric:tabular-nums; text-align:right; font-weight:600; font-size:14px; letter-spacing:.1em;}
+
+  /* ------- Back page ------- */
+  .backplate{
+    height:calc(var(--page-h) - 128px);
+    display:grid; grid-template-rows: 1fr auto;
+  }
+  .backplate .bigmark{
+    align-self:center; justify-self:center;
+    display:flex; flex-direction:column; align-items:center; gap:24px;
+  }
+  .backplate .bigmark img{height:70px; filter:invert(1);}
+  .backplate .bigmark .q{
+    font-family:var(--font-serif); font-style:italic; font-size:32px; line-height:1.3; text-align:center; color:#E7DFCE; max-width:640px;
+  }
+  .backplate .bigmark .q .yel{color:var(--bb-yellow);}
+  .backplate .foot{display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; padding-top:24px; border-top:1px solid rgba(255,255,255,.25);}
+  .backplate .foot .cell .k{font-family:var(--font-display); font-weight:700; font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:#9a9288;}
+  .backplate .foot .cell .v{font-family:var(--font-display); font-weight:600; font-size:14px; margin-top:4px; color:#fff;}
+
+  /* ------- Print ------- */
+  @media print{
+    body{background:#fff; padding:0;}
+    .page{margin:0; box-shadow:none; page-break-after:always;}
+  }
+</style>
+</head>
+<body>
+
+<!-- =============================== PAGE 01 — COVER =============================== -->
+<section class="page dark cover" data-screen-label="01 Cover">
+  <div class="cover-wrap">
+    <div class="cover-top">
+      <div class="left">
+        <img class="mark" src="assets/logo-mark.png" alt="BB mark" style="filter:invert(1)">
+        <div class="meta"><b>Business Builders</b> &middot; Brand Guidelines &middot; 2026</div>
+      </div>
+      <div class="meta" style="text-align:right;">
+        Edition 01<br>Internal use &mdash; v2
+      </div>
+    </div>
+
+    <div class="cover-mid">
+      <h1 class="big">
+        BUSINESS<br>
+        <span class="yel"><em>BUILDERS</em></span>
+      </h1>
+      <p class="standfirst">
+        The brand kit. Everything you need to plan, build, promote and protect the Business Builders identity &mdash; in one place.
+      </p>
+    </div>
+
+    <div class="cover-bot">
+      <div>Clear message. <span style="color:#fff;">Proven strategy.</span> Real growth.</div>
+      <div class="stamp">Brand Kit / 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== PAGE 02 — CONTENTS =============================== -->
+<section class="page cream" data-screen-label="02 Contents">
+  <div class="rh"><span>BB &middot; Brand Kit 2026</span><span>Contents</span></div>
+  <div class="page-inner">
+    <span class="kicker">Inside</span>
+    <h2 class="title small">A field guide<br>for <em>builders</em>.</h2>
+    <p class="standfirst">Nine short chapters. Read cover-to-cover on your first day, then dip in whenever you're about to ship something with our name on it.</p>
+
+    <div class="toc">
+      <div class="row"><div class="n">01</div><div class="t">Cover <span class="sub">&mdash; where we start</span></div><div class="p">p. 01</div></div>
+      <div class="row"><div class="n">02</div><div class="t">Contents <span class="sub">&mdash; the map</span></div><div class="p">p. 02</div></div>
+      <div class="row"><div class="n">03</div><div class="t">The Logo <span class="sub">&mdash; lockups, clear space, don'ts</span></div><div class="p">p. 03</div></div>
+      <div class="row"><div class="n">04</div><div class="t">Color <span class="sub">&mdash; yellow, black, and what backs them up</span></div><div class="p">p. 04</div></div>
+      <div class="row"><div class="n">05</div><div class="t">Typography <span class="sub">&mdash; Poppins, Inter, one italic serif</span></div><div class="p">p. 05</div></div>
+      <div class="row"><div class="n">06</div><div class="t">Voice &amp; Tone <span class="sub">&mdash; how we talk to owners</span></div><div class="p">p. 06</div></div>
+      <div class="row"><div class="n">07</div><div class="t">Signature Elements <span class="sub">&mdash; the hammer in the wordmark</span></div><div class="p">p. 07</div></div>
+      <div class="row"><div class="n">08</div><div class="t">Iconography &amp; Imagery <span class="sub">&mdash; monoline, warm, real</span></div><div class="p">p. 08</div></div>
+      <div class="row"><div class="n">09</div><div class="t">In The Wild <span class="sub">&mdash; social, cards, letterhead, email</span></div><div class="p">p. 09</div></div>
+    </div>
+  </div>
+  <div class="rf"><span>Internal &middot; Not for distribution</span><span class="num">02 / 09</span></div>
+</section>
+
+<!-- =============================== PAGE 03 — LOGO =============================== -->
+<section class="page" data-screen-label="03 Logo">
+  <div class="rh"><span>BB &middot; Brand Kit 2026</span><span>Chapter 03 &middot; The Logo</span></div>
+  <div class="page-inner">
+    <div class="section-head">
+      <div>
+        <span class="kicker">Chapter 03</span>
+        <h2 class="title small">The wordmark<br>&amp; the <em>anvil</em>.</h2>
+      </div>
+      <p class="standfirst">Two weights of Poppins, a slab-serif counter, and a hammered anvil. One lockup does almost all the work.</p>
+    </div>
+
+    <div class="logo-hero" style="margin-top:28px; padding:44px 36px;">
+      <img src="assets/logo-primary.png" alt="Business Builders primary lockup" style="max-width:62%;">
+    </div>
+
+    <div class="grid g-4 logo-variants" style="margin-top:24px;">
+      <div class="logo-tile">
+        <div class="canvas light"><img src="assets/logo-primary.png" alt=""></div>
+        <div class="meta"><span class="name">Primary</span><span class="kind">On White</span></div>
+      </div>
+      <div class="logo-tile">
+        <div class="canvas cream"><img src="assets/logo-primary.png" alt=""></div>
+        <div class="meta"><span class="name">Primary</span><span class="kind">On Cream</span></div>
+      </div>
+      <div class="logo-tile">
+        <div class="canvas dark"><img src="assets/logo-primary.png" alt=""></div>
+        <div class="meta"><span class="name">Reversed</span><span class="kind">On Black</span></div>
+      </div>
+      <div class="logo-tile">
+        <div class="canvas yellow"><img src="assets/logo-primary.png" alt=""></div>
+        <div class="meta"><span class="name">Primary</span><span class="kind">On Yellow</span></div>
+      </div>
+    </div>
+
+    <div class="grid g-2" style="margin-top:28px;">
+      <div>
+        <div class="label" style="margin-bottom:10px;">Clear Space</div>
+        <div class="clearspace">
+          <div class="inner"><img src="assets/logo-primary.png" alt=""></div>
+          <span class="tick t"><span class="x">X</span></span>
+          <span class="tick b"><span class="x">X</span></span>
+          <span class="tick l"><span class="x">X</span></span>
+          <span class="tick r"><span class="x">X</span></span>
+        </div>
+        <p class="body" style="margin-top:10px;">Always leave one <b>X</b> of clear space on every side, where <b>X</b> equals the cap-height of the "B" in BUSINESS.</p>
+      </div>
+      <div>
+        <div class="label" style="margin-bottom:10px;">Minimum Size</div>
+        <div style="border:1px solid var(--ink); padding:28px; display:flex; flex-direction:column; gap:20px; background:#fff;">
+          <div style="display:flex; align-items:center; gap:20px;">
+            <img src="assets/logo-primary.png" alt="" style="width:240px;">
+            <div class="sp-mono">240&thinsp;px &middot; Digital default</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:20px;">
+            <img src="assets/logo-primary.png" alt="" style="width:140px;">
+            <div class="sp-mono">140&thinsp;px &middot; Minimum digital</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:20px;">
+            <img src="assets/logo-mark.png" alt="" style="width:42px;">
+            <div class="sp-mono">Anvil mark only &middot; &lt; 140&thinsp;px</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:28px;">
+      <div class="label" style="margin-bottom:10px;">Do Not</div>
+      <div class="grid g-4 dos">
+        <div class="tile bad">
+          <div class="canvas bad-stretch"><img src="assets/logo-primary.png" alt=""></div>
+          <div class="legend"><span class="mk">✕</span>Stretch or squash</div>
+        </div>
+        <div class="tile bad">
+          <div class="canvas" style="background:#D84A4A;"><img src="assets/logo-primary.png" alt="" style="filter:brightness(0) invert(1);"></div>
+          <div class="legend"><span class="mk">✕</span>Recolor the lockup</div>
+        </div>
+        <div class="tile bad">
+          <div class="canvas bad-rotate"><img src="assets/logo-primary.png" alt=""></div>
+          <div class="legend"><span class="mk">✕</span>Rotate or tilt</div>
+        </div>
+        <div class="tile bad">
+          <div class="canvas" style="background:
+            repeating-linear-gradient(45deg,#E6E6E6 0 6px,#CFCFCF 6px 12px);">
+            <img src="assets/logo-primary.png" alt="">
+          </div>
+          <div class="legend"><span class="mk">✕</span>Place on busy patterns</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rf"><span>Clear. Confident. Anvil-forward.</span><span class="num">03 / 09</span></div>
+</section>
+
+<!-- =============================== PAGE 04 — COLOR =============================== -->
+<section class="page cream" data-screen-label="04 Color">
+  <div class="rh"><span>BB &middot; Brand Kit 2026</span><span>Chapter 04 &middot; Color</span></div>
+  <div class="page-inner">
+    <div class="section-head">
+      <div>
+        <span class="kicker">Chapter 04</span>
+        <h2 class="title small">Yellow does<br>the <em>talking</em>.</h2>
+      </div>
+      <p class="standfirst">Black carries the weight. Yellow makes the point. Everything else is supporting cast &mdash; used quietly, never decoratively.</p>
+    </div>
+
+    <div class="label" style="margin:32px 0 12px;">Primary</div>
+    <div class="grid g-2">
+      <div class="swatch">
+        <div class="chip" style="background:#FACC15;"><span class="tok">--bb-yellow</span></div>
+        <div class="info">
+          <div class="name">Builders Yellow</div>
+          <div class="vals"><span>#FACC15</span><span>R250 G204 B21</span><span>C5 M17 Y100 K0</span></div>
+          <div class="use">Primary accent. Highlight words in headlines, primary buttons, bullet checks, icon boxes.</div>
+        </div>
+      </div>
+      <div class="swatch dark-chip">
+        <div class="chip" style="background:#1A1918;"><span class="tok">--bb-black</span></div>
+        <div class="info">
+          <div class="name">Ironwork Black</div>
+          <div class="vals"><span>#1A1918</span><span>R26 G25 B24</span><span>C70 M63 Y62 K65</span></div>
+          <div class="use">Default dark. Borders, offset shadows, text on yellow, dark section backgrounds.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="label" style="margin:28px 0 12px;">Secondary &amp; Neutrals</div>
+    <div class="grid g-5">
+      <div class="swatch dark-chip">
+        <div class="chip" style="background:#F49E1C;"><span class="tok">yellow-deep</span></div>
+        <div class="info"><div class="name" style="font-size:14px;">Forge</div><div class="vals"><span>#F49E1C</span></div></div>
+      </div>
+      <div class="swatch dark-chip">
+        <div class="chip" style="background:#111827;"><span class="tok">navy</span></div>
+        <div class="info"><div class="name" style="font-size:14px;">Navy</div><div class="vals"><span>#111827</span></div></div>
+      </div>
+      <div class="swatch dark-chip">
+        <div class="chip" style="background:#505050;"><span class="tok">gray</span></div>
+        <div class="info"><div class="name" style="font-size:14px;">Anvil</div><div class="vals"><span>#505050</span></div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#E5E5E5;"><span class="tok">hairline</span></div>
+        <div class="info"><div class="name" style="font-size:14px;">Hairline</div><div class="vals"><span>#E5E5E5</span></div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#F7F5F2;border-bottom:1px solid var(--ink);"><span class="tok">off-white</span></div>
+        <div class="info"><div class="name" style="font-size:14px;">Paper</div><div class="vals"><span>#F7F5F2</span></div></div>
+      </div>
+    </div>
+
+    <div class="color-rules">
+      <div class="rule">
+        <div class="cap">Rule 01 &middot; 60/30/10</div>
+        <h4>Let black carry it.</h4>
+        <p>Roughly 60% neutral (paper/white), 30% Ironwork Black, 10% Builders Yellow. Yellow is an accent, not a field.</p>
+        <div class="demo" style="background:var(--bb-yellow); color:var(--ink);">Yellow &lt; 10%</div>
+      </div>
+      <div class="rule">
+        <div class="cap">Rule 02 &middot; Pairing</div>
+        <h4>Text on yellow = black.</h4>
+        <p>Always Ironwork Black on yellow &mdash; never white, never navy. This is the single highest-contrast pair we own.</p>
+        <div class="demo" style="background:var(--bb-yellow); color:var(--ink);">Get a plan that works &rarr;</div>
+      </div>
+      <div class="rule">
+        <div class="cap">Rule 03 &middot; Gradients</div>
+        <h4>Yellow-to-forge only.</h4>
+        <p>Use the <code style="font-family:var(--font-mono);font-size:12px;">#FACC15 &rarr; #F49E1C</code> gradient on large surfaces only. No tri-color gradients, ever.</p>
+        <div class="demo" style="background:linear-gradient(135deg,#FACC15,#F49E1C); color:var(--ink);">Grad &middot; Yellow &rarr; Forge</div>
+      </div>
+    </div>
+  </div>
+  <div class="rf"><span>60% neutral &middot; 30% ink &middot; 10% yellow</span><span class="num">04 / 09</span></div>
+</section>
+
+<!-- =============================== PAGE 05 — TYPE =============================== -->
+<section class="page" data-screen-label="05 Typography">
+  <div class="rh"><span>BB &middot; Brand Kit 2026</span><span>Chapter 05 &middot; Typography</span></div>
+  <div class="page-inner">
+    <div class="section-head">
+      <div>
+        <span class="kicker">Chapter 05</span>
+        <h2 class="title small">Poppins, Inter,<br>one <em>italic</em> serif.</h2>
+      </div>
+      <p class="standfirst">Headlines are always Poppins, always uppercase, always tight. Inter runs the body. A single italic serif face softens the long-form.</p>
+    </div>
+
+    <div style="margin-top:28px;">
+      <div class="type-row">
+        <div class="meta"><div class="t">Display</div><div class="s">Poppins ExtraBold 80&thinsp;/&thinsp;.98&thinsp;/&thinsp;-.02em<br>ALL CAPS</div></div>
+        <div><p class="sp-display">CLEAR MESSAGE. <em>PROVEN STRATEGY.</em> <span style="color:var(--bb-yellow)">REAL GROWTH.</span></p></div>
+      </div>
+      <div class="type-row">
+        <div class="meta"><div class="t">H1</div><div class="s">Poppins Bold 52&thinsp;/&thinsp;1.04<br>ALL CAPS</div></div>
+        <div><p class="sp-h1">Get a plan that <span style="color:var(--bb-yellow)">works</span>.</p></div>
+      </div>
+      <div class="type-row">
+        <div class="meta"><div class="t">H3</div><div class="s">Poppins Bold 28&thinsp;/&thinsp;1.2<br>ALL CAPS</div></div>
+        <div><p class="sp-h3">Plan. Produce. Promote. Protect.</p></div>
+      </div>
+      <div class="type-row">
+        <div class="meta"><div class="t">Eyebrow</div><div class="s">Poppins Bold 12&thinsp;/&thinsp;.22em<br>UPPERCASE TRACKED</div></div>
+        <div><p class="sp-eye">StoryBrand Certified Agency</p></div>
+      </div>
+      <div class="type-row">
+        <div class="meta"><div class="t">Standfirst</div><div class="s">Playfair Display Italic 22&thinsp;/&thinsp;1.45<br>Sentence case</div></div>
+        <div><p class="sp-serif">Every service you need to plan, build, promote, and protect your business &mdash; all under one roof.</p></div>
+      </div>
+      <div class="type-row">
+        <div class="meta"><div class="t">Body</div><div class="s">Inter Regular 16&thinsp;/&thinsp;1.6<br>Sentence case, max 56ch</div></div>
+        <div><p class="sp-body">We help you grow. When you have the right team around you &mdash; one that leverages AI, StoryBrand messaging, and 26 years of operator experience &mdash; marketing stops feeling like a gamble and starts feeling like a system.</p></div>
+      </div>
+      <div class="type-row">
+        <div class="meta"><div class="t">Mono</div><div class="s">System monospace 13<br>Tokens, values, code</div></div>
+        <div><p class="sp-mono">--bb-yellow: #FACC15;  &nbsp;--bb-black: #1A1918;  &nbsp;--fs-h1: 56px;</p></div>
+      </div>
+    </div>
+
+    <div class="label" style="margin:28px 0 6px;">Poppins &mdash; the full weight stack</div>
+    <div class="weights">
+      <div class="w w3"><div class="aa">Aa</div><div class="nm">Light 300</div></div>
+      <div class="w w4"><div class="aa">Aa</div><div class="nm">Regular 400</div></div>
+      <div class="w w5"><div class="aa">Aa</div><div class="nm">Medium 500</div></div>
+      <div class="w w6"><div class="aa">Aa</div><div class="nm">SemiBold 600</div></div>
+      <div class="w w7"><div class="aa">Aa</div><div class="nm">Bold 700</div></div>
+      <div class="w w8"><div class="aa">Aa</div><div class="nm">ExtraBold 800</div></div>
+    </div>
+
+    <p class="body" style="margin-top:22px;">
+      <b>Rule of thumb.</b> If it shouts, it's Poppins, uppercase, and tight. If it explains, it's Inter, sentence case, generous. If it softens or invites, it's an italic serif &mdash; and it's short.
+    </p>
+  </div>
+  <div class="rf"><span>One face shouts &middot; one face explains &middot; one face softens</span><span class="num">05 / 09</span></div>
+</section>
+
+<!-- =============================== PAGE 06 — VOICE =============================== -->
+<section class="page dark" data-screen-label="06 Voice">
+  <div class="rh"><span>BB &middot; Brand Kit 2026</span><span>Chapter 06 &middot; Voice</span></div>
+  <div class="page-inner">
+    <div class="section-head">
+      <div>
+        <span class="kicker">Chapter 06</span>
+        <h2 class="title small" style="color:#fff;">We talk like an<br><em>operator</em>, not<br>an agency.</h2>
+      </div>
+      <p class="standfirst">The reader is a busy owner who is frustrated with marketing that doesn't work. Name the problem, promise a plan, show the proof. Never synergy.</p>
+    </div>
+
+    <div class="voice-grid">
+      <div class="voice-card">
+        <div class="cap">Pillar 01</div>
+        <h4>Plain-spoken authority</h4>
+        <p>Short sentences. Concrete nouns. No jargon, no hedging. If a 12-year-old can't follow it, rewrite it.</p>
+      </div>
+      <div class="voice-card">
+        <div class="cap">Pillar 02</div>
+        <h4>Problem &rarr; plan &rarr; outcome</h4>
+        <p>Classic StoryBrand. Every section ends on a clear next step. No dead-end paragraphs.</p>
+      </div>
+      <div class="voice-card">
+        <div class="cap">Pillar 03</div>
+        <h4>Confident, not loud</h4>
+        <p>Big claims get numbers: "532% site traffic." "Inc. 5000 twice." "26+ years." Evidence over adjectives.</p>
+      </div>
+      <div class="voice-card">
+        <div class="cap">Pillar 04</div>
+        <h4>Warm where it counts</h4>
+        <p>Headlines bark. Subheads in italic serif invite. The reader should feel like they're being taken care of, not sold to.</p>
+      </div>
+    </div>
+
+    <div class="wewrite">
+      <div class="col do">
+        <div class="hd"><span class="mk">✓</span><span class="lbl">How we write</span></div>
+        <ul>
+          <li><em>"We help you grow."</em> &mdash; "you" and "we." Never "the client."</li>
+          <li><em>"Stop wasting time &amp; money on marketing that doesn't work."</em></li>
+          <li><em>"Clear message. Proven strategy. Real growth."</em> &mdash; three-beat rhythm.</li>
+          <li><em>"Request a quote &rarr;"</em> &mdash; action-first CTAs, all caps.</li>
+        </ul>
+      </div>
+      <div class="col dont">
+        <div class="hd"><span class="mk">✕</span><span class="lbl">How we don't</span></div>
+        <ul>
+          <li>"Leveraging synergistic brand narratives at scale."</li>
+          <li>"Our clients entrust us with their journeys."</li>
+          <li>"Discover the Business Builders experience."</li>
+          <li>Emoji, exclamation points, or "click here."</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="label" style="margin:32px 0 10px;color:#fff;">The three headline patterns</div>
+    <div class="hl-patterns">
+      <div class="p"><span class="num">01</span>Clear message. <em>Proven strategy.</em> <span class="yel">Real growth.</span></div>
+      <div class="p"><span class="num">02</span>Get a plan that <span class="yel">works</span> &mdash; <em>&amp; a team you can trust.</em></div>
+      <div class="p"><span class="num">03</span>Stop wasting time &amp; money on marketing <span class="yel"><em>that doesn't work.</em></span></div>
+    </div>
+  </div>
+  <div class="rf"><span>Plain-spoken &middot; operator-led &middot; proof-first</span><span class="num">06 / 09</span></div>
+</section>
+
+<!-- =============================== PAGE 07 — SIGNATURE =============================== -->
+<section class="page cream" data-screen-label="07 Signatures">
+  <div class="rh"><span>BB &middot; Brand Kit 2026</span><span>Chapter 07 &middot; Signatures</span></div>
+  <div class="page-inner">
+    <div class="section-head">
+      <div>
+        <span class="kicker">Chapter 07</span>
+        <h2 class="title small">Four moves<br>that read as <em>BB</em>.</h2>
+      </div>
+      <p class="standfirst">If a piece has the yellow highlight word, the offset shadow, the italic serif, or the anvil &mdash; it reads as Business Builders in half a second.</p>
+    </div>
+
+    <div class="sig-grid">
+      <div class="sig-card">
+        <h4>01 &middot; The yellow highlight word</h4>
+        <p>One word inside a headline turns <code>--bb-yellow</code>. Often italicized. Never more than one per line.</p>
+        <div class="demo">
+          <span class="hlword">GET A PLAN THAT <span class="yel"><em>WORKS</em></span>.</span>
+        </div>
+      </div>
+      <div class="sig-card">
+        <h4>02 &middot; The offset shadow</h4>
+        <p>A hard black rectangle 4&ndash;10&thinsp;px down-right of the element. No blur. The "paper on a wall" effect.</p>
+        <div class="demo">
+          <span class="btn-demo">Request a quote &rarr;</span>
+        </div>
+        <code>box-shadow: 6px 6px 0 0 #1A1918;</code>
+      </div>
+      <div class="sig-card">
+        <h4>03 &middot; Italic serif standfirst</h4>
+        <p>Under every Poppins headline, one sentence of italic serif. Softens the shout. Never more than 20 words.</p>
+        <div class="demo">
+          <p class="sp-serif" style="text-align:center;">"Every service you need to plan, build, promote, and protect your business &mdash; all under one roof."</p>
+        </div>
+      </div>
+      <div class="sig-card">
+        <h4>04 &middot; The anvil</h4>
+        <p>The mark is a hammered anvil. Use it solo below 140&thinsp;px, or tucked up-right beside the wordmark. Never decorative.</p>
+        <div class="demo" style="gap:18px;">
+          <img src="assets/logo-mark.png" alt="" class="anvil-demo" style="height:72px;">
+          <img src="assets/logo-primary.png" alt="" style="height:44px;">
+        </div>
+      </div>
+    </div>
+
+    <div class="label" style="margin-top:28px;">Eyebrow chips</div>
+    <div style="display:flex; gap:14px; margin-top:12px; align-items:center; flex-wrap:wrap;">
+      <span class="pill-yel">StoryBrand Certified</span>
+      <span class="pill-blk">Inc. 5000 &middot; 2&times;</span>
+      <span class="pill-yel">HubSpot Platinum</span>
+      <span class="pill-blk">26+ Years</span>
+      <span class="pill-yel">1000+ Clients</span>
+    </div>
+    <p class="body" style="margin-top:16px;">Yellow squared chips appear on dark sections, black pills on light sections. Alternate, never mix both on the same surface.</p>
+  </div>
+  <div class="rf"><span>Four moves &middot; read in half a second</span><span class="num">07 / 09</span></div>
+</section>
+
+<!-- =============================== PAGE 08 — ICONS + IMAGERY =============================== -->
+<section class="page" data-screen-label="08 Icons & Imagery">
+  <div class="rh"><span>BB &middot; Brand Kit 2026</span><span>Chapter 08 &middot; Icons &amp; Imagery</span></div>
+  <div class="page-inner">
+    <div class="section-head">
+      <div>
+        <span class="kicker">Chapter 08</span>
+        <h2 class="title small">Monoline icons.<br><em>Real</em> photography.</h2>
+      </div>
+      <p class="standfirst">Icons are thin, boxed, and functional. Photography is warm, natural, and always of real people doing real work.</p>
+    </div>
+
+    <div class="label" style="margin-top:28px;">Icon system &mdash; Lucide 2&thinsp;px, yellow-boxed</div>
+    <div class="icon-row">
+      <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+      <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+      <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg></div>
+      <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M8 4v16M3 10h18"/></svg></div>
+      <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg></div>
+      <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5C9 18 4 15 4 10a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 5-5 8-8 10.5-.3.3-.7.3-1 0Z"/></svg></div>
+
+      <div class="icon-box solid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6"/></svg></div>
+      <div class="icon-box solid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></div>
+      <div class="icon-box solid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+      <div class="icon-box solid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11c0 6-9 11-9 11S3 17 3 11a9 9 0 0 1 18 0Z"/><circle cx="12" cy="11" r="3"/></svg></div>
+      <div class="icon-box solid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-3V4H7v3H4v13h16Z"/><path d="M8 12h8M8 16h5"/></svg></div>
+      <div class="icon-box solid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6"/><path d="M9 11h.01M15 11h.01"/></svg></div>
+    </div>
+
+    <div class="icon-spec">
+      <div class="card">
+        <h4>Stroke &amp; size</h4>
+        <p>Lucide at 2&thinsp;px. Icons sit at 42&ndash;50% of the containing box. Never fill. Never mixed weights in the same row.</p>
+      </div>
+      <div class="card">
+        <h4>Two treatments only</h4>
+        <p><b>On dark:</b> black box, 2&thinsp;px yellow border, yellow icon. <b>On light:</b> solid yellow box, black icon. Nothing else.</p>
+      </div>
+    </div>
+
+    <div class="label" style="margin-top:32px;">Photography direction</div>
+    <div class="img-grid">
+      <div class="img-tile img-a"><span class="lbl">Real teams</span></div>
+      <div class="img-tile img-b"><span class="lbl">Real clients</span></div>
+      <div class="img-tile img-c"><span class="lbl">Real workspaces</span></div>
+      <div class="img-tile img-d"><span class="lbl">Warm daylight</span></div>
+      <div class="img-tile img-e"><span class="lbl">Applications</span></div>
+      <div class="img-tile img-f"><span class="lbl">Process &amp; craft</span></div>
+    </div>
+
+    <div class="img-rules">
+      <div class="rules">
+        <div class="col">
+          <div class="lb">Do</div>
+          <ul>
+            <li>Warm, natural light. Golden hour where possible.</li>
+            <li>Real team members, real clients, real offices.</li>
+            <li>Neutral warm-gray backdrops for object mockups.</li>
+            <li>Solid dark overlays (60&ndash;80% opacity) when text sits on image.</li>
+          </ul>
+        </div>
+        <div class="col">
+          <div class="lb">Don't</div>
+          <ul>
+            <li>Stock smiling-at-laptop photography.</li>
+            <li>Illustration, isometric, 3D renders, or AI-generated art.</li>
+            <li>Heavy filters, cool-blue grading, or black-and-white.</li>
+            <li>Text on unoverlaid images &mdash; ever.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rf"><span>Lucide 2&thinsp;px &middot; warm natural photography</span><span class="num">08 / 09</span></div>
+</section>
+
+<!-- =============================== PAGE 09 — APPLIED =============================== -->
+<section class="page cream" data-screen-label="09 In The Wild">
+  <div class="rh"><span>BB &middot; Brand Kit 2026</span><span>Chapter 09 &middot; In The Wild</span></div>
+  <div class="page-inner">
+    <div class="section-head">
+      <div>
+        <span class="kicker">Chapter 09</span>
+        <h2 class="title small">The brand,<br><em>in the wild</em>.</h2>
+      </div>
+      <p class="standfirst">Social squares, business cards, letterhead, email signature. Same three moves &mdash; yellow word, offset shadow, italic serif &mdash; applied at every scale.</p>
+    </div>
+
+    <div class="label" style="margin-top:28px;">Social &mdash; 1&thinsp;:&thinsp;1</div>
+    <div class="social">
+      <div class="post a">
+        <div class="hd">
+          <img class="mk" src="assets/logo-mark.png" alt="" style="filter:invert(1);">
+          <span class="tag">Case Study</span>
+        </div>
+        <h3 class="h">532% <span class="yel"><em>site traffic</em></span> in 12 months.</h3>
+        <div class="foot">
+          <span class="url">bbuilders.com</span>
+          <span class="cta">View Project &rarr;</span>
+        </div>
+      </div>
+      <div class="post b">
+        <div class="hd">
+          <img class="mk" src="assets/logo-mark.png" alt="">
+          <span class="tag">Hiring</span>
+        </div>
+        <h3 class="h">We're hiring <em>builders</em>.</h3>
+        <div class="foot">
+          <span class="url">bbuilders.com/careers</span>
+          <span class="cta">Apply &rarr;</span>
+        </div>
+      </div>
+      <div class="post c">
+        <div class="hd">
+          <img class="mk" src="assets/logo-mark.png" alt="">
+          <span class="tag" style="color:#9a7200;">Framework</span>
+        </div>
+        <h3 class="h">Clear message. <em>Proven strategy.</em> <span class="yel">Real growth.</span></h3>
+        <div class="foot">
+          <span class="url">bbuilders.com</span>
+          <span class="cta">Free Audit &rarr;</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="label" style="margin-top:32px;">Business Cards &middot; 3.5&thinsp;&times;&thinsp;2&thinsp;in</div>
+    <div class="card-stage">
+      <div class="biz front">
+        <img class="mk" src="assets/logo-primary.png" alt="">
+        <div>
+          <div class="who">Morgan Reyes</div>
+          <div class="role">Director of Growth</div>
+        </div>
+        <div class="cont">
+          morgan@bbuilders.com<br>
+          +1 (555) 010 &middot; 2026<br>
+          bbuilders.com
+        </div>
+        <div class="strip"></div>
+      </div>
+      <div class="biz back">
+        <img class="anvil" src="assets/logo-mark.png" alt="">
+        <div class="big">Clear message.<br><span class="yel"><em>Real growth.</em></span></div>
+        <div style="font-family:var(--font-display); font-weight:600; font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:#C8C2B8;">bbuilders.com</div>
+      </div>
+    </div>
+
+    <div class="label" style="margin-top:32px;">Letterhead &amp; Email Signature</div>
+    <div class="letter-row">
+      <div class="letter">
+        <div class="hd">
+          <img class="mk" src="assets/logo-primary.png" alt="">
+          <div class="meta">Business Builders<br>123 Main St &middot; Suite 4<br>Pittsburgh, PA</div>
+        </div>
+        <div class="yelbar"></div>
+        <div class="date">21 April 2026</div>
+        <div class="who">Re: Q2 Engagement Proposal</div>
+        <p>Dear Morgan,</p>
+        <p>Thanks again for the call last week. Attached is the scope we discussed &mdash; the short version: we'll start with messaging, ship a new home &amp; services pages inside eight weeks, and run the paid &amp; SEO engine alongside from week three.</p>
+        <p>You asked for numbers. Last year, a client in a similar spot saw a 532% lift in qualified site traffic over twelve months. Not a guarantee &mdash; but a realistic ceiling with the stack we're proposing.</p>
+        <p>Happy to walk through any of this on a call, or leave it with you to read. Either works.</p>
+        <div class="sig">&mdash; Sam</div>
+        <div class="foot"><span>bbuilders.com</span><span>Clear. Proven. Growth.</span></div>
+      </div>
+
+      <div>
+        <div class="emailsig">
+          <div class="avatar"></div>
+          <div class="info">
+            <div class="nm">Sam Whitaker</div>
+            <div class="rl">Managing Partner</div>
+            <div class="row"><b>e</b> &nbsp;sam@bbuilders.com</div>
+            <div class="row"><b>p</b> &nbsp;+1 555 010 2026</div>
+            <div class="row"><b>w</b> &nbsp;bbuilders.com &nbsp; &middot; &nbsp; <span class="y">StoryBrand Certified</span></div>
+            <img class="mk" src="assets/logo-primary.png" alt="">
+          </div>
+        </div>
+        <p class="body" style="margin-top:14px; font-size:13px;">
+          <b>Signature rules.</b> 84&thinsp;px avatar. Name in Poppins ExtraBold, role in italic serif gray. Never add quotes, mottos, or social icons. The wordmark sits below contact lines, never above.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="rf"><span>Same moves &middot; every scale</span><span class="num">09 / 09</span></div>
+</section>
+
+<!-- =============================== BACK =============================== -->
+<section class="page dark" data-screen-label="10 Back">
+  <div class="page-inner">
+    <div class="backplate">
+      <div class="bigmark">
+        <img src="assets/logo-mark.png" alt="">
+        <div class="q">&mdash; Clear message.<br><span class="yel"><em>Proven strategy.</em></span><br>Real growth.</div>
+      </div>
+      <div class="foot">
+        <div class="cell"><div class="k">Brand Kit</div><div class="v">Edition 01 &middot; 2026</div></div>
+        <div class="cell"><div class="k">Stewards</div><div class="v">Brand &amp; Design Team</div></div>
+        <div class="cell"><div class="k">Questions</div><div class="v">brand@bbuilders.com</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

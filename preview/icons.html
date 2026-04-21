@@ -1,0 +1,25 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+  html,body{margin:0;background:#1A1918;font-family:var(--font-body);color:#fff;}
+  .card{padding:26px; display:flex; gap:16px; flex-wrap:wrap; align-items:center;}
+  .icn{width:84px; height:84px; border:1.5px solid #FACC15; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:6px;}
+  .icn svg{color:#FACC15; width:28px; height:28px; stroke-width:2;}
+  .lbl{font-family:var(--font-display); font-weight:700; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:#fff;}
+  .solid{background:#FACC15; border-color:#FACC15;}
+  .solid svg{color:#1A1918;}
+  .solid .lbl{color:#1A1918;}
+</style></head><body>
+<div class="card">
+  <div class="icn"><i data-lucide="graduation-cap"></i><span class="lbl">Education</span></div>
+  <div class="icn"><i data-lucide="shopping-bag"></i><span class="lbl">Goods</span></div>
+  <div class="icn"><i data-lucide="car"></i><span class="lbl">Auto</span></div>
+  <div class="icn"><i data-lucide="building-2"></i><span class="lbl">Churches</span></div>
+  <div class="icn"><i data-lucide="hard-hat"></i><span class="lbl">Construction</span></div>
+  <div class="icn"><i data-lucide="heart"></i><span class="lbl">Healthcare</span></div>
+  <div class="icn solid"><i data-lucide="sparkles"></i><span class="lbl">Your Industry</span></div>
+</div>
+<script>lucide.createIcons();</script>
+</body></html>

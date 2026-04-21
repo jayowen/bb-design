@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Business Builders — Design System</title>
+  <link rel="stylesheet" href="colors_and_type.css">
+  <style>
+    html, body { margin: 0; background: var(--bb-off-white); color: var(--bb-black); font-family: var(--font-body); }
+    a { color: inherit; }
+
+    /* Top bar */
+    .nav {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--bb-black); color: var(--bb-white);
+      border-bottom: 2px solid var(--bb-yellow);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 32px;
+    }
+    .nav .brand { display: flex; align-items: center; gap: 14px; font-family: var(--font-display); font-weight: 800; letter-spacing: var(--ls-caps); text-transform: uppercase; }
+    .nav .brand img { height: 32px; width: auto; filter: invert(1) brightness(2); }
+    .nav .cta {
+      font-family: var(--font-display); font-weight: 700; font-size: 13px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      background: var(--bb-yellow); color: var(--bb-black);
+      padding: 12px 20px; border: 2px solid var(--bb-black);
+      box-shadow: 4px 4px 0 0 var(--bb-black);
+      text-decoration: none; transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+    }
+    .nav .cta:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 var(--bb-black); }
+
+    /* Hero */
+    .hero { background: var(--bb-black); color: var(--bb-white); padding: 96px 32px 128px; text-align: center; }
+    .hero .eyebrow {
+      display: inline-block; background: var(--bb-yellow); color: var(--bb-black);
+      padding: 8px 14px; font-family: var(--font-display); font-weight: 700;
+      font-size: 12px; letter-spacing: var(--ls-eyebrow); text-transform: uppercase;
+    }
+    .hero h1 {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(40px, 7vw, 80px); line-height: var(--lh-tight);
+      letter-spacing: var(--ls-tight); text-transform: uppercase;
+      margin: 28px auto 20px; max-width: 1000px;
+    }
+    .hero h1 em { font-style: italic; font-weight: 800; }
+    .hero h1 .hl { color: var(--bb-yellow); }
+    .hero .sub {
+      font-family: var(--font-serif); font-style: italic; font-size: 20px;
+      color: #D6D6D6; max-width: 680px; margin: 0 auto;
+    }
+    .hero .trust {
+      margin-top: 48px; display: flex; gap: 28px; justify-content: center; flex-wrap: wrap;
+      font-family: var(--font-display); font-weight: 700; font-size: 11px;
+      letter-spacing: var(--ls-eyebrow); text-transform: uppercase; color: #A3A3A3;
+    }
+    .hero .trust span::before { content: "★ "; color: var(--bb-yellow); }
+
+    /* Section */
+    section { padding: 80px 32px; }
+    .section-head { text-align: center; max-width: 780px; margin: 0 auto 56px; }
+    .section-head .chip {
+      display: inline-block; background: var(--bb-black); color: var(--bb-white);
+      padding: 6px 14px; border-radius: var(--r-pill);
+      font-family: var(--font-display); font-weight: 700; font-size: 11px;
+      letter-spacing: var(--ls-eyebrow); text-transform: uppercase;
+    }
+    .section-head h2 {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: clamp(32px, 5vw, 48px); line-height: var(--lh-heading);
+      letter-spacing: var(--ls-tight); text-transform: uppercase;
+      margin: 16px 0 12px;
+    }
+    .section-head h2 .hl { color: var(--bb-yellow-deep); }
+    .section-head .sub { font-family: var(--font-serif); font-style: italic; font-size: 18px; color: var(--bb-gray); }
+
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    /* Artifact cards */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; }
+    .card {
+      background: var(--bb-white); border: 2px solid var(--bb-black);
+      box-shadow: var(--shadow-offset);
+      padding: 28px; text-decoration: none; color: inherit;
+      transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .card:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-offset-lg); }
+    .card .badge {
+      align-self: flex-start; background: var(--bb-yellow); color: var(--bb-black);
+      padding: 4px 10px; font-family: var(--font-display); font-weight: 700;
+      font-size: 11px; letter-spacing: var(--ls-eyebrow); text-transform: uppercase;
+    }
+    .card h3 {
+      font-family: var(--font-display); font-weight: 700; font-size: 22px;
+      line-height: 1.2; text-transform: uppercase; letter-spacing: var(--ls-tight);
+      margin: 4px 0 0;
+    }
+    .card p { margin: 0; color: var(--bb-gray); line-height: var(--lh-body); font-size: 15px; }
+    .card .arrow {
+      margin-top: auto; font-family: var(--font-display); font-weight: 700;
+      font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--bb-black);
+    }
+    .card .arrow::after { content: " →"; color: var(--bb-yellow-deep); }
+
+    /* Preview tiles (denser, iframe thumbnails) */
+    .previews { background: var(--bb-white); border-top: 2px solid var(--bb-black); border-bottom: 2px solid var(--bb-black); }
+    .preview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+    .preview-tile {
+      text-decoration: none; color: inherit; display: flex; flex-direction: column;
+      border: 2px solid var(--bb-black); background: var(--bb-off-white);
+      transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
+    }
+    .preview-tile:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-offset); }
+    .preview-frame {
+      position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden;
+      background: var(--bb-white); border-bottom: 2px solid var(--bb-black);
+    }
+    .preview-frame iframe {
+      position: absolute; top: 0; left: 0;
+      width: 200%; height: 200%; border: 0;
+      transform: scale(0.5); transform-origin: top left;
+      pointer-events: none;
+    }
+    .preview-label {
+      padding: 14px 16px; font-family: var(--font-display); font-weight: 700;
+      font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .preview-label::after { content: "→"; color: var(--bb-yellow-deep); }
+
+    /* Footer */
+    footer {
+      background: var(--bb-black); color: var(--bb-white);
+      padding: 48px 32px; text-align: center;
+      border-top: 2px solid var(--bb-yellow);
+    }
+    footer .logo { height: 36px; width: auto; filter: invert(1) brightness(2); margin-bottom: 18px; }
+    footer .motto {
+      font-family: var(--font-display); font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; font-size: 14px; color: #A3A3A3;
+    }
+    footer .motto .hl { color: var(--bb-yellow); }
+  </style>
+</head>
+<body class="bb-root">
+
+  <nav class="nav">
+    <div class="brand">
+      <img src="assets/logo-primary.png" alt="Business Builders">
+      <span>Design System</span>
+    </div>
+    <a class="cta" href="#artifacts">Request a Quote →</a>
+  </nav>
+
+  <header class="hero">
+    <span class="eyebrow">StoryBrand Certified · HubSpot Platinum · Inc. 5000 2×</span>
+    <h1>
+      Clear message.
+      <em>Proven strategy.</em>
+      <span class="hl">Real growth.</span>
+    </h1>
+    <p class="sub">The single source of truth for every branded Business Builders artifact — colors, type, components, and production-ready page templates.</p>
+    <div class="trust">
+      <span>26+ Years</span><span>1000+ Clients</span><span>StoryBrand Certified</span><span>HubSpot Platinum</span>
+    </div>
+  </header>
+
+  <section id="artifacts">
+    <div class="container">
+      <div class="section-head">
+        <span class="chip">The Artifacts</span>
+        <h2>Four pages, <span class="hl">one voice.</span></h2>
+        <p class="sub">Production-ready compositions built from the system. Open any one to see the brand in action.</p>
+      </div>
+      <div class="grid">
+        <a class="card" href="BB Homepage.html">
+          <span class="badge">Web</span>
+          <h3>BB Homepage</h3>
+          <p>Full marketing home — hero, four-pillar Growth Stack, industries grid, success stories, process, and footer.</p>
+          <span class="arrow">View page</span>
+        </a>
+        <a class="card" href="BB Brand Kit 2026.html">
+          <span class="badge">Brand</span>
+          <h3>BB Brand Kit 2026</h3>
+          <p>Interactive brand kit — logos, palette, type scale, components, shadows, and usage rules.</p>
+          <span class="arrow">View kit</span>
+        </a>
+        <a class="card" href="Website Carousel.html">
+          <span class="badge">Web</span>
+          <h3>Website Carousel</h3>
+          <p>Hero carousel module — rotating work highlights with the signature offset-shadow cards.</p>
+          <span class="arrow">View carousel</span>
+        </a>
+        <a class="card" href="Social Headers.html">
+          <span class="badge">Social</span>
+          <h3>Social Headers</h3>
+          <p>Ready-to-export banner art for LinkedIn, X, Facebook, and YouTube channels.</p>
+          <span class="arrow">View headers</span>
+        </a>
+        <a class="card" href="Social Posts 2026.html">
+          <span class="badge">Social</span>
+          <h3>Social Posts · 2026</h3>
+          <p>52 weekly square posts with copy-and-paste captions — a full year of on-brand social content.</p>
+          <span class="arrow">View calendar</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="previews">
+    <div class="container">
+      <div class="section-head">
+        <span class="chip" style="background: var(--bb-yellow); color: var(--bb-black)">The System</span>
+        <h2>Tokens &amp; <span class="hl">components.</span></h2>
+        <p class="sub">Every color, font, shadow, and component — click any tile to open the full specimen.</p>
+      </div>
+      <div class="preview-grid">
+        <a class="preview-tile" href="preview/colors-primary.html"><div class="preview-frame"><iframe src="preview/colors-primary.html" loading="lazy"></iframe></div><div class="preview-label">Colors · Primary</div></a>
+        <a class="preview-tile" href="preview/colors-secondary.html"><div class="preview-frame"><iframe src="preview/colors-secondary.html" loading="lazy"></iframe></div><div class="preview-label">Colors · Secondary</div></a>
+        <a class="preview-tile" href="preview/colors-gradients.html"><div class="preview-frame"><iframe src="preview/colors-gradients.html" loading="lazy"></iframe></div><div class="preview-label">Gradients</div></a>
+        <a class="preview-tile" href="preview/type-display.html"><div class="preview-frame"><iframe src="preview/type-display.html" loading="lazy"></iframe></div><div class="preview-label">Type · Display</div></a>
+        <a class="preview-tile" href="preview/type-headings.html"><div class="preview-frame"><iframe src="preview/type-headings.html" loading="lazy"></iframe></div><div class="preview-label">Type · Headings</div></a>
+        <a class="preview-tile" href="preview/type-body-serif.html"><div class="preview-frame"><iframe src="preview/type-body-serif.html" loading="lazy"></iframe></div><div class="preview-label">Type · Body &amp; Serif</div></a>
+        <a class="preview-tile" href="preview/headline-pattern.html"><div class="preview-frame"><iframe src="preview/headline-pattern.html" loading="lazy"></iframe></div><div class="preview-label">Headline Patterns</div></a>
+        <a class="preview-tile" href="preview/buttons.html"><div class="preview-frame"><iframe src="preview/buttons.html" loading="lazy"></iframe></div><div class="preview-label">Buttons</div></a>
+        <a class="preview-tile" href="preview/cards.html"><div class="preview-frame"><iframe src="preview/cards.html" loading="lazy"></iframe></div><div class="preview-label">Cards</div></a>
+        <a class="preview-tile" href="preview/badges.html"><div class="preview-frame"><iframe src="preview/badges.html" loading="lazy"></iframe></div><div class="preview-label">Badges</div></a>
+        <a class="preview-tile" href="preview/bullet-list.html"><div class="preview-frame"><iframe src="preview/bullet-list.html" loading="lazy"></iframe></div><div class="preview-label">Bullet Lists</div></a>
+        <a class="preview-tile" href="preview/form.html"><div class="preview-frame"><iframe src="preview/form.html" loading="lazy"></iframe></div><div class="preview-label">Forms</div></a>
+        <a class="preview-tile" href="preview/icons.html"><div class="preview-frame"><iframe src="preview/icons.html" loading="lazy"></iframe></div><div class="preview-label">Icons</div></a>
+        <a class="preview-tile" href="preview/logo.html"><div class="preview-frame"><iframe src="preview/logo.html" loading="lazy"></iframe></div><div class="preview-label">Logo</div></a>
+        <a class="preview-tile" href="preview/shadows.html"><div class="preview-frame"><iframe src="preview/shadows.html" loading="lazy"></iframe></div><div class="preview-label">Shadows</div></a>
+        <a class="preview-tile" href="preview/radii.html"><div class="preview-frame"><iframe src="preview/radii.html" loading="lazy"></iframe></div><div class="preview-label">Radii</div></a>
+        <a class="preview-tile" href="preview/spacing.html"><div class="preview-frame"><iframe src="preview/spacing.html" loading="lazy"></iframe></div><div class="preview-label">Spacing</div></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <img class="logo" src="assets/logo-primary.png" alt="Business Builders">
+    <div class="motto">Clear message. <span class="hl">Proven strategy.</span> Real growth.</div>
+  </footer>
+
+</body>
+</html>

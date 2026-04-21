@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>3 Steps to Improve Your Website Today — BB Carousel</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<style>
+  :root{
+    --ink:#1A1918;
+    --paper:#F7F5F2;
+    --yellow:#FACC15;
+    --forge:#F49E1C;
+    --gray:#505050;
+    --mid:#6B6B6B;
+  }
+  html,body{margin:0;background:#E7E3DD;color:var(--ink);font-family:var(--font-body);}
+  body{padding:32px 0;}
+
+  .stage{
+    display:flex; flex-direction:column; align-items:center; gap:28px;
+  }
+  .caption{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:11px;
+    letter-spacing:.24em;
+    text-transform:uppercase;
+    color:#6B6B6B;
+  }
+  .row{
+    display:flex; gap:20px; flex-wrap:wrap; justify-content:center;
+    max-width:2320px;
+  }
+
+  /* ------ Slide shell: 1080 square ------ */
+  .slide{
+    width:1080px; height:1080px;
+    position:relative; overflow:hidden;
+    box-shadow:0 2px 3px rgba(0,0,0,.05), 0 22px 50px rgba(0,0,0,.15);
+  }
+  /* wrap each slide in a fixed-size scaled box */
+  .thumb{
+    width:540px; height:540px;
+    overflow:hidden;
+    flex:0 0 auto;
+  }
+  .thumb .slide{
+    transform:scale(.5);
+    transform-origin: top left;
+  }
+
+  .slide .frame{
+    position:absolute; inset:40px;
+    border:2px solid currentColor;
+    pointer-events:none;
+  }
+
+  .chrome{
+    position:absolute; left:64px; right:64px; top:58px;
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:16px;
+    letter-spacing:.24em;
+    text-transform:uppercase;
+  }
+  .chrome .mk{height:28px;}
+  .chrome .handle{opacity:.7;}
+
+  .foot{
+    position:absolute; left:64px; right:64px; bottom:58px;
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+  }
+  .foot .dots{display:flex; gap:8px;}
+  .foot .dot{
+    width:10px; height:10px; border-radius:999px;
+    background:currentColor; opacity:.22;
+  }
+  .foot .dot.on{opacity:1;}
+
+  /* ------ Slide 1: cover (dark) ------ */
+  .s1{background:var(--ink); color:#fff;}
+  .s1 .chrome .mk{filter:invert(1);}
+  .s1 .kicker{
+    position:absolute; top:160px; left:80px;
+    display:inline-block; background:var(--yellow); color:var(--ink);
+    font-family:var(--font-display); font-weight:700; font-size:18px;
+    letter-spacing:.28em; text-transform:uppercase;
+    padding:10px 16px 9px;
+  }
+  .s1 .hero{
+    position:absolute; left:80px; right:80px; top:250px;
+    font-family:var(--font-display);
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:-.035em;
+    line-height:.88;
+    font-size:150px;
+    margin:0;
+  }
+  .s1 .hero .num{color:var(--yellow);}
+  .s1 .hero em{font-style:italic;}
+  .s1 .sub{
+    position:absolute; left:80px; right:320px; bottom:150px;
+    font-family:var(--font-serif); font-style:italic;
+    font-size:28px; line-height:1.4;
+    color:#E7DFCE;
+    margin:0;
+    max-width:640px;
+  }
+  .s1 .arrow{
+    position:absolute; right:80px; bottom:190px;
+    width:150px; height:150px;
+    border:3px solid var(--yellow);
+    border-radius:999px;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--yellow);
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:56px;
+  }
+  .s1 .swipe{
+    position:absolute; right:80px; bottom:110px;
+    font-family:var(--font-display); font-weight:700; font-size:14px;
+    letter-spacing:.28em; text-transform:uppercase; color:var(--yellow);
+    text-align:center; width:150px;
+  }
+
+  /* ------ Step slide shell (cream) ------ */
+  .step{background:var(--paper); color:var(--ink);}
+  .step .frame{color:var(--ink); opacity:.12;}
+
+  .step .plate{
+    position:absolute; left:64px; right:64px; top:140px;
+    display:flex; align-items:flex-start; gap:40px;
+  }
+  .step .num{
+    font-family:var(--font-display); font-weight:900;
+    font-size:260px; line-height:.82;
+    letter-spacing:-.04em;
+    color:var(--ink);
+    position:relative;
+    flex:0 0 auto;
+  }
+  .step .num::after{
+    content:""; position:absolute; left:0; right:0; bottom:-26px; height:14px;
+    background:var(--yellow);
+  }
+  .step .lead{
+    flex:1; padding-top:18px;
+  }
+  .step .tag{
+    font-family:var(--font-display); font-weight:700;
+    font-size:16px; letter-spacing:.28em; text-transform:uppercase;
+    color:var(--mid);
+    margin-bottom:18px;
+  }
+  .step .tag b{color:var(--ink);}
+  .step .title{
+    font-family:var(--font-display); font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:-.025em; line-height:.95;
+    font-size:96px;
+    margin:0;
+  }
+  .step .title em{font-style:italic;}
+  .step .title .yel{color:var(--forge);}
+
+  .step .body{
+    position:absolute; left:64px; right:460px; top:650px;
+    display:grid; grid-template-columns: 1fr; gap:28px;
+  }
+  .step .body p{
+    font-family:var(--font-body);
+    font-size:24px; line-height:1.45;
+    color:#3A3A3A;
+    margin:0;
+    max-width:48ch;
+  }
+  .step .body p em{font-family:var(--font-serif); font-style:italic; color:var(--ink);}
+  .step .checks{
+    display:flex; flex-direction:column; gap:14px;
+    padding-top:4px;
+  }
+  .step .check{
+    display:flex; gap:14px; align-items:flex-start;
+    font-family:var(--font-body);
+    font-size:18px; line-height:1.4;
+    color:#1A1918;
+  }
+  .step .check .mk{
+    width:26px; height:26px;
+    background:var(--yellow);
+    border:1.5px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--ink); font-weight:800; font-size:15px;
+    flex:0 0 auto;
+    margin-top:1px;
+  }
+  .step .check b{display:block; font-family:var(--font-display); font-weight:700; font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:var(--mid); margin-bottom:2px;}
+
+  .step .ruler{
+    position:absolute; left:64px; right:64px; top:120px;
+    height:1px; background:var(--ink); opacity:.2;
+  }
+
+  /* mock artwork blocks for each step */
+  .mock{
+    position:absolute; right:64px; bottom:150px;
+    width:360px; height:240px;
+    background:#fff; border:1.5px solid var(--ink);
+    box-shadow:10px 10px 0 0 var(--ink);
+    overflow:hidden;
+  }
+  .s2 .mock{
+    padding:18px;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .s2 .mock .browser-bar{
+    display:flex; gap:6px; margin-bottom:6px;
+  }
+  .s2 .mock .browser-bar .bd{width:10px; height:10px; border-radius:999px; background:#E5E5E5;}
+  .s2 .mock .browser-bar .url{flex:1; height:10px; border-radius:6px; background:#EEE; margin-left:10px;}
+  .s2 .mock .hl{
+    height:20px; background:var(--yellow); width:72%;
+  }
+  .s2 .mock .hl2{height:12px; background:var(--ink); width:56%;}
+  .s2 .mock .ln{height:6px; background:#E5E5E5; border-radius:3px;}
+  .s2 .mock .ln.w1{width:92%;}
+  .s2 .mock .ln.w2{width:78%;}
+  .s2 .mock .btn{
+    margin-top:6px; align-self:flex-start;
+    background:var(--yellow); padding:8px 14px;
+    font-family:var(--font-display); font-weight:800; font-size:11px;
+    letter-spacing:.14em; text-transform:uppercase;
+    border:1.5px solid var(--ink);
+    box-shadow:4px 4px 0 0 var(--ink);
+  }
+
+  .s3 .mock{
+    padding:0;
+  }
+  .s3 .mock .bar{
+    height:38px; display:flex; align-items:center; padding:0 12px; gap:6px;
+    background:#F4F0EA; border-bottom:1.5px solid var(--ink);
+    font-family:var(--font-mono); font-size:11px; color:#505050;
+  }
+  .s3 .mock .bar .bd{width:9px; height:9px; border-radius:999px; background:#E5E5E5;}
+  .s3 .mock .bar .sp{flex:1;}
+  .s3 .mock .bar .m{font-family:var(--font-display); font-weight:700; font-size:10px; letter-spacing:.2em; text-transform:uppercase;}
+  .s3 .mock .phone{
+    position:absolute; right:24px; top:54px; bottom:20px; width:110px;
+    background:var(--ink); border-radius:14px; border:1.5px solid var(--ink);
+    padding:8px;
+  }
+  .s3 .mock .phone .scr{background:#fff; height:100%; border-radius:8px; padding:10px; display:flex; flex-direction:column; gap:6px;}
+  .s3 .mock .phone .hl{height:8px; background:var(--yellow); width:70%;}
+  .s3 .mock .phone .ln{height:4px; background:#E5E5E5; border-radius:2px;}
+  .s3 .mock .desk{
+    position:absolute; left:16px; top:54px; right:150px; bottom:20px;
+    background:#fff; padding:12px; display:flex; flex-direction:column; gap:6px;
+    border:1.5px solid var(--ink);
+  }
+  .s3 .mock .desk .hl{height:10px; background:var(--yellow); width:62%;}
+  .s3 .mock .desk .ln{height:5px; background:#E5E5E5; border-radius:2px;}
+  .s3 .mock .speedgauge{
+    position:absolute; left:16px; bottom:20px;
+    font-family:var(--font-display); font-weight:800; font-size:22px;
+    background:var(--yellow); padding:4px 8px; border:1.5px solid var(--ink);
+  }
+
+  .s4 .mock{
+    padding:16px 18px;
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .s4 .mock .hd{
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--font-display); font-weight:700; font-size:11px;
+    letter-spacing:.2em; text-transform:uppercase; color:var(--mid);
+  }
+  .s4 .mock .h{
+    font-family:var(--font-display); font-weight:800; font-size:22px;
+    text-transform:uppercase; letter-spacing:-.01em;
+    line-height:1.05;
+  }
+  .s4 .mock .h .y{color:var(--forge);}
+  .s4 .mock .row{
+    display:flex; gap:10px; align-items:center; padding:6px 0;
+    border-top:1px dashed #D5D0C7;
+  }
+  .s4 .mock .row:first-of-type{border-top:0;}
+  .s4 .mock .row .mk{
+    width:22px; height:22px; background:var(--yellow); border:1.5px solid var(--ink);
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:11px; color:var(--ink);
+    flex:0 0 auto;
+  }
+  .s4 .mock .row .lb{font-family:var(--font-body); font-size:12px; color:#3A3A3A;}
+
+  /* ------ Slide 5: CTA (yellow) ------ */
+  .s5{background:var(--yellow); color:var(--ink);}
+  .s5 .chrome{color:var(--ink);}
+  .s5 .frame{color:var(--ink); opacity:.25;}
+  .s5 .kicker{
+    position:absolute; top:160px; left:80px;
+    display:inline-block; background:var(--ink); color:var(--yellow);
+    font-family:var(--font-display); font-weight:700; font-size:18px;
+    letter-spacing:.28em; text-transform:uppercase;
+    padding:10px 16px 9px;
+  }
+  .s5 .big{
+    position:absolute; left:80px; right:80px; top:260px;
+    font-family:var(--font-display); font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:-.035em;
+    line-height:.9;
+    font-size:148px;
+    margin:0;
+  }
+  .s5 .big em{font-style:italic;}
+  .s5 .sub{
+    position:absolute; left:80px; right:80px; top:680px;
+    font-family:var(--font-serif); font-style:italic;
+    font-size:28px; line-height:1.35;
+    color:#1A1918;
+    max-width:720px;
+    margin:0;
+  }
+  .s5 .cta{
+    position:absolute; left:80px; bottom:130px;
+    display:inline-flex; align-items:center; gap:16px;
+    background:var(--ink); color:#fff;
+    padding:22px 28px;
+    font-family:var(--font-display); font-weight:800; font-size:26px;
+    letter-spacing:.1em; text-transform:uppercase;
+    box-shadow:12px 12px 0 0 rgba(0,0,0,.25);
+  }
+  .s5 .url{
+    position:absolute; right:80px; bottom:140px;
+    font-family:var(--font-display); font-weight:700; font-size:16px;
+    letter-spacing:.22em; text-transform:uppercase;
+    text-align:right;
+  }
+  .s5 .url b{display:block; font-size:22px; margin-top:4px;}
+
+  /* ------ media query for narrower preview (optional) ------ */
+  @media (max-width: 1400px){
+    .thumb{width:460px; height:460px;}
+    .thumb .slide{transform:scale(.4259);}
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="caption">Instagram Carousel &middot; 1080 &times; 1080 &middot; 5 slides</div>
+
+  <div class="row grid-slides" data-screen-label="All Slides">
+
+    <!-- ============ SLIDE 1 — COVER ============ -->
+    <div class="thumb"><section class="slide s1" data-screen-label="01 Cover">
+      <div class="chrome">
+        <img class="mk" src="assets/logo-primary.png" alt="BB">
+        <span class="handle">@BusinessBuilders</span>
+      </div>
+      <div class="frame"></div>
+
+      <span class="kicker">3-Step Playbook</span>
+
+      <h1 class="hero">
+        FIX YOUR<br>
+        WEBSITE<br>
+        <em>IN ONE</em> <span class="num">DAY.</span>
+      </h1>
+
+      <p class="sub">
+        Three changes any founder can ship before lunch &mdash; no dev sprint, no new vendor, no new agency.
+      </p>
+
+      <div class="arrow">&rarr;</div>
+      <div class="swipe">Swipe</div>
+
+      <div class="foot">
+        <span>Steps 1 &mdash; 3</span>
+        <div class="dots"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <span>01 / 05</span>
+      </div>
+    </section></div>
+
+    <!-- ============ SLIDE 2 — STEP 01 ============ -->
+    <div class="thumb"><section class="slide step s2" data-screen-label="02 Step 01">
+      <div class="chrome">
+        <img class="mk" src="assets/logo-primary.png" alt="BB">
+        <span class="handle">@BusinessBuilders</span>
+      </div>
+      <div class="frame"></div>
+      <div class="ruler"></div>
+
+      <div class="plate">
+        <div class="num">01</div>
+        <div class="lead">
+          <div class="tag">Step 01 &middot; <b>Clarify the message</b></div>
+          <h2 class="title">SAY WHAT<br>YOU DO<br><em>IN</em> <span class="yel">10 WORDS</span>.</h2>
+        </div>
+      </div>
+
+      <div class="body">
+        <p>
+          If a stranger can't tell what you sell, who it's for, and what they get &mdash; <em>in the first screen</em> &mdash; they're gone. Rewrite your header as one sentence. No adjectives.
+        </p>
+        <div class="checks">
+          <div class="check"><span class="mk">&#10003;</span><div><b>The formula</b>We help [who] do [what] so they [win].</div></div>
+          <div class="check"><span class="mk">&#10003;</span><div><b>Cut</b>Every word a 12-year-old wouldn't say.</div></div>
+          <div class="check"><span class="mk">&#10003;</span><div><b>Keep</b>Nouns. Verbs. A single promise.</div></div>
+        </div>
+      </div>
+
+      <div class="mock">
+        <div class="browser-bar"><span class="bd"></span><span class="bd"></span><span class="bd"></span><span class="url"></span></div>
+        <div class="hl"></div>
+        <div class="hl2"></div>
+        <div class="ln w1"></div>
+        <div class="ln w2"></div>
+        <div class="btn">Book a call &rarr;</div>
+      </div>
+
+      <div class="foot">
+        <span>Step 01 / 03</span>
+        <div class="dots"><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <span>02 / 05</span>
+      </div>
+    </section></div>
+
+    <!-- ============ SLIDE 3 — STEP 02 ============ -->
+    <div class="thumb"><section class="slide step s3" data-screen-label="03 Step 02">
+      <div class="chrome">
+        <img class="mk" src="assets/logo-primary.png" alt="BB">
+        <span class="handle">@BusinessBuilders</span>
+      </div>
+      <div class="frame"></div>
+      <div class="ruler"></div>
+
+      <div class="plate">
+        <div class="num">02</div>
+        <div class="lead">
+          <div class="tag">Step 02 &middot; <b>Make it fast</b></div>
+          <h2 class="title">PASS THE<br><em>THREE</em><br><span class="yel">SECOND</span> TEST.</h2>
+        </div>
+      </div>
+
+      <div class="body">
+        <p>
+          Over 3 seconds to load on mobile and <em>half your visitors leave</em>. Compress every hero image, kill autoplaying video, and ditch any tracker you can't name out loud.
+        </p>
+        <div class="checks">
+          <div class="check"><span class="mk">&#10003;</span><div><b>Measure</b>PageSpeed Insights, mobile tab.</div></div>
+          <div class="check"><span class="mk">&#10003;</span><div><b>Target</b>LCP under 2.5s. CLS near zero.</div></div>
+          <div class="check"><span class="mk">&#10003;</span><div><b>Cut</b>Sliders, popups, unused fonts.</div></div>
+        </div>
+      </div>
+
+      <div class="mock">
+        <div class="bar"><span class="bd"></span><span class="bd"></span><span class="bd"></span><span class="sp"></span><span class="m">LCP 2.1s</span></div>
+        <div class="desk">
+          <div class="hl"></div>
+          <div class="ln" style="width:88%;"></div>
+          <div class="ln" style="width:72%;"></div>
+          <div class="ln" style="width:90%;"></div>
+          <div class="ln" style="width:60%;"></div>
+        </div>
+        <div class="phone"><div class="scr">
+          <div class="hl"></div>
+          <div class="ln" style="width:90%;"></div>
+          <div class="ln" style="width:70%;"></div>
+          <div class="ln" style="width:84%;"></div>
+        </div></div>
+        <div class="speedgauge">98 / 100</div>
+      </div>
+
+      <div class="foot">
+        <span>Step 02 / 03</span>
+        <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div>
+        <span>03 / 05</span>
+      </div>
+    </section></div>
+
+    <!-- ============ SLIDE 4 — STEP 03 ============ -->
+    <div class="thumb"><section class="slide step s4" data-screen-label="04 Step 03">
+      <div class="chrome">
+        <img class="mk" src="assets/logo-primary.png" alt="BB">
+        <span class="handle">@BusinessBuilders</span>
+      </div>
+      <div class="frame"></div>
+      <div class="ruler"></div>
+
+      <div class="plate">
+        <div class="num">03</div>
+        <div class="lead">
+          <div class="tag">Step 03 &middot; <b>Give one next step</b></div>
+          <h2 class="title">ONE <em>CLEAR</em><br>CTA. <span class="yel">EVERY</span><br>SCREEN.</h2>
+        </div>
+      </div>
+
+      <div class="body">
+        <p>
+          Every section should answer one question: <em>"and then what?"</em> Pick one primary action &mdash; <b>Request a quote</b>, <b>Book a call</b>, <b>Start a project</b> &mdash; and repeat it. Stop offering six.
+        </p>
+        <div class="checks">
+          <div class="check"><span class="mk">&#10003;</span><div><b>Primary</b>Same verb, same color, every screen.</div></div>
+          <div class="check"><span class="mk">&#10003;</span><div><b>Secondary</b>Max one. Outline style only.</div></div>
+          <div class="check"><span class="mk">&#10003;</span><div><b>Kill</b>"Learn more." It decides nothing.</div></div>
+        </div>
+      </div>
+
+      <div class="mock">
+        <div class="hd"><span>Current</span><span>&rarr; After</span></div>
+        <div class="h">One <span class="y">CTA</span> wins.</div>
+        <div class="row"><span class="mk">1</span><span class="lb">Request a quote &rarr;</span></div>
+        <div class="row"><span class="mk">2</span><span class="lb">Book a discovery call &rarr;</span></div>
+        <div class="row"><span class="mk">3</span><span class="lb">Start a project &rarr;</span></div>
+      </div>
+
+      <div class="foot">
+        <span>Step 03 / 03</span>
+        <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span><span class="dot"></span></div>
+        <span>04 / 05</span>
+      </div>
+    </section></div>
+
+    <!-- ============ SLIDE 5 — CTA ============ -->
+    <div class="thumb"><section class="slide s5" data-screen-label="05 CTA">
+      <div class="chrome">
+        <img class="mk" src="assets/logo-primary.png" alt="BB">
+        <span class="handle">@BusinessBuilders</span>
+      </div>
+      <div class="frame"></div>
+
+      <span class="kicker">Free Audit</span>
+
+      <h2 class="big">
+        WANT US TO<br>
+        <em>DO IT</em><br>
+        <span style="color:#1A1918">FOR YOU?</span>
+      </h2>
+
+      <p class="sub">
+        We'll audit your site against all three &mdash; messaging, speed, CTAs &mdash; and send you a 10-minute Loom with the fixes. No pitch, no catch.
+      </p>
+
+      <span class="cta">
+        DM us "AUDIT" &rarr;
+      </span>
+
+      <div class="url">
+        or visit<br>
+        <b>bbuilders.com/audit</b>
+      </div>
+
+      <div class="foot">
+        <span>Clear. Proven. Growth.</span>
+        <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot on"></span></div>
+        <span>05 / 05</span>
+      </div>
+    </section></div>
+
+  </div>
+</div>
+
+</body>
+</html>

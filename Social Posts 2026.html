@@ -1,0 +1,1562 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BB — 52 Weekly Social Posts · 2026</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<style>
+  :root{
+    --ink:#1A1918; --paper:#F7F5F2; --yellow:#FACC15; --forge:#F49E1C;
+    --gray:#505050; --mid:#6B6B6B; --soft:#E7DFCE;
+  }
+  html,body{margin:0; background:#E7E3DD; color:var(--ink); font-family:var(--font-body);}
+
+  .page-head{
+    background:var(--ink); color:#fff; padding:48px 32px 56px; text-align:center;
+    border-bottom:4px solid var(--yellow);
+  }
+  .page-head .eyebrow{
+    display:inline-block; background:var(--yellow); color:var(--ink);
+    padding:8px 14px; font-family:var(--font-display); font-weight:700;
+    font-size:12px; letter-spacing:.24em; text-transform:uppercase;
+  }
+  .page-head h1{
+    font-family:var(--font-display); font-weight:900;
+    font-size:clamp(36px,6vw,64px); line-height:.95; letter-spacing:-.02em;
+    text-transform:uppercase; margin:22px 0 12px;
+  }
+  .page-head h1 em{font-style:italic;}
+  .page-head h1 .yel{color:var(--yellow);}
+  .page-head .sub{
+    font-family:var(--font-serif); font-style:italic; font-size:18px;
+    color:#D6CFBE; max-width:720px; margin:0 auto;
+  }
+  .legend{
+    margin:20px auto 0; display:flex; gap:10px; flex-wrap:wrap; justify-content:center;
+    max-width:960px;
+  }
+  .legend .chip{
+    font-family:var(--font-display); font-weight:700; font-size:10px;
+    letter-spacing:.22em; text-transform:uppercase;
+    padding:6px 10px; border:1.5px solid rgba(255,255,255,.25); color:#D6CFBE;
+  }
+  .legend .chip .sw{display:inline-block; width:8px; height:8px; margin-right:6px; vertical-align:middle;}
+
+  .wrap{padding:56px 24px; max-width:1380px; margin:0 auto;}
+  .grid{
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));
+    gap:36px;
+  }
+
+  .entry{
+    background:#fff; border:2px solid var(--ink);
+    box-shadow:6px 6px 0 0 var(--ink);
+    display:flex; flex-direction:column;
+  }
+  .entry .meta{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:12px 16px; border-bottom:2px solid var(--ink);
+    background:var(--paper);
+  }
+  .entry .wk{
+    font-family:var(--font-display); font-weight:800; font-size:12px;
+    letter-spacing:.2em; text-transform:uppercase;
+  }
+  .entry .tag{
+    font-family:var(--font-display); font-weight:700; font-size:10px;
+    letter-spacing:.22em; text-transform:uppercase;
+    padding:4px 8px; background:var(--yellow); color:var(--ink);
+  }
+  .entry .tag.dark{background:var(--ink); color:var(--yellow);}
+  .entry .tag.out{background:transparent; color:var(--ink); border:1.5px solid var(--ink);}
+
+  .post-wrap{
+    position:relative; width:100%; aspect-ratio:1/1;
+    background:var(--ink); overflow:hidden;
+  }
+  .post{
+    position:absolute; top:0; left:0;
+    width:1080px; height:1080px;
+    transform-origin:top left;
+  }
+
+  .cap{
+    padding:14px 16px 18px; border-top:2px solid var(--ink);
+    background:#fff;
+  }
+  .cap .hd{
+    font-family:var(--font-display); font-weight:800; font-size:11px;
+    letter-spacing:.22em; text-transform:uppercase; color:var(--mid);
+    margin-bottom:6px;
+  }
+  .cap .body{
+    font-family:var(--font-body); font-size:13.5px; line-height:1.5; color:var(--ink);
+  }
+  .cap .tags{
+    margin-top:10px; font-family:var(--font-mono); font-size:11px; color:var(--gray);
+    line-height:1.55;
+  }
+
+  /* Post templates */
+  .post .bg-grid{
+    position:absolute; inset:0; pointer-events:none;
+    background:
+      linear-gradient(90deg, transparent 0, transparent calc(100% - 1px), rgba(255,255,255,.05) 100%) 0 0 / 120px 100%,
+      linear-gradient(0deg, transparent 0, transparent calc(100% - 1px), rgba(255,255,255,.05) 100%) 0 0 / 100% 120px;
+  }
+  .post .wm{
+    position:absolute; pointer-events:none; user-select:none;
+    font-family:var(--font-display); font-weight:900; line-height:.78;
+    letter-spacing:-.04em; text-transform:uppercase;
+    font-size:760px; color:rgba(250,204,21,.05);
+    top:-120px; right:-60px;
+  }
+  .post .rule-bottom{position:absolute; left:0; right:0; bottom:0; height:10px; background:var(--yellow);}
+  .post .mark{
+    position:absolute; left:64px; bottom:54px; height:42px;
+    filter:invert(1); opacity:.92;
+  }
+  .post .url{
+    position:absolute; right:64px; bottom:58px;
+    font-family:var(--font-display); font-weight:700; font-size:18px;
+    letter-spacing:.22em; text-transform:uppercase; color:var(--yellow);
+  }
+  .post .url::before{content:"→ ";}
+  .post .kicker{
+    display:inline-flex; align-items:center; gap:14px;
+    font-family:var(--font-display); font-weight:700; font-size:20px;
+    letter-spacing:.28em; text-transform:uppercase; color:#C8C2B8;
+  }
+  .post .kicker .dot{width:10px; height:10px; background:var(--yellow);}
+  .post .sub{
+    font-family:var(--font-serif); font-style:italic; font-size:34px;
+    line-height:1.32; color:#E7DFCE; margin:0;
+  }
+
+  .post.tplA{
+    background:
+      radial-gradient(ellipse 900px 480px at 70% 35%, rgba(250,204,21,.10), transparent 60%),
+      linear-gradient(135deg, #0F0E0D 0%, #1A1918 60%, #221F1C 100%);
+    color:#fff;
+  }
+  .post.tplA .inner{position:absolute; inset:0; padding:96px 80px 160px; display:flex; flex-direction:column; gap:36px;}
+  .post.tplA .head{
+    font-family:var(--font-display); font-weight:900;
+    font-size:130px; line-height:.9; letter-spacing:-.035em;
+    text-transform:uppercase; margin:0;
+  }
+  .post.tplA .head em{font-style:italic;}
+  .post.tplA .head .yel{color:var(--yellow);}
+
+  .post.tplB{background:var(--yellow); color:var(--ink);}
+  .post.tplB .inner{position:absolute; inset:0; padding:96px 80px 160px; display:flex; flex-direction:column;}
+  .post.tplB .kicker{color:var(--ink);}
+  .post.tplB .kicker .dot{background:var(--ink);}
+  .post.tplB .stat{
+    font-family:var(--font-display); font-weight:900;
+    font-size:420px; line-height:.82; letter-spacing:-.05em; margin:40px 0 0;
+  }
+  .post.tplB .stat .unit{font-size:180px; vertical-align:super; letter-spacing:0;}
+  .post.tplB .label{
+    font-family:var(--font-display); font-weight:800; font-size:44px;
+    line-height:1.05; letter-spacing:-.02em; text-transform:uppercase;
+    margin-top:16px; max-width:820px;
+  }
+  .post.tplB .sub{color:var(--ink); opacity:.72;}
+  .post.tplB .mark{filter:none; opacity:.85;}
+  .post.tplB .url{color:var(--ink);}
+  .post.tplB .rule-bottom{background:var(--ink);}
+
+  .post.tplC{background:var(--paper); color:var(--ink);}
+  .post.tplC .inner{position:absolute; inset:0; padding:96px 80px 160px; display:flex; flex-direction:column; gap:28px;}
+  .post.tplC .kicker{color:var(--gray);}
+  .post.tplC .kicker .dot{background:var(--ink);}
+  .post.tplC .numbox{
+    width:160px; height:160px; background:var(--yellow); color:var(--ink);
+    border:3px solid var(--ink); box-shadow:10px 10px 0 0 var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:120px; letter-spacing:-.04em;
+  }
+  .post.tplC .head{
+    font-family:var(--font-display); font-weight:900;
+    font-size:96px; line-height:.95; letter-spacing:-.03em;
+    text-transform:uppercase; margin:0; max-width:880px;
+  }
+  .post.tplC .head em{font-style:italic;}
+  .post.tplC .head .yel{color:var(--forge);}
+  .post.tplC .sub{color:var(--gray);}
+  .post.tplC .mark{filter:none; opacity:.85;}
+  .post.tplC .url{color:var(--ink);}
+  .post.tplC .rule-bottom{background:var(--ink);}
+
+  .post.tplD{background:var(--ink); color:#fff;}
+  .post.tplD .halves{position:absolute; inset:0;}
+  .post.tplD .half{
+    position:absolute; left:0; right:0; height:50%;
+    padding:64px 80px; display:flex; flex-direction:column; gap:18px; justify-content:center;
+  }
+  .post.tplD .half.top{top:0; background:var(--ink); color:#fff;}
+  .post.tplD .half.bot{bottom:0; background:var(--yellow); color:var(--ink); border-top:4px solid var(--ink);}
+  .post.tplD .tagline{
+    font-family:var(--font-display); font-weight:800; font-size:18px;
+    letter-spacing:.24em; text-transform:uppercase;
+  }
+  .post.tplD .half.top .tagline{color:var(--yellow);}
+  .post.tplD .half.bot .tagline{color:var(--ink);}
+  .post.tplD .line{
+    font-family:var(--font-display); font-weight:900;
+    font-size:76px; line-height:.96; letter-spacing:-.025em;
+    text-transform:uppercase; margin:0;
+  }
+  .post.tplD .line em{font-style:italic;}
+
+  .post.tplE{background:linear-gradient(135deg, #FACC15 0%, #F49E1C 100%); color:var(--ink);}
+  .post.tplE .inner{position:absolute; inset:0; padding:96px 80px 160px; display:flex; flex-direction:column; gap:30px;}
+  .post.tplE .pillarBadge{
+    align-self:flex-start; background:var(--ink); color:var(--yellow);
+    padding:14px 22px;
+    font-family:var(--font-display); font-weight:900; font-size:22px;
+    letter-spacing:.32em; text-transform:uppercase;
+  }
+  .post.tplE .head{
+    font-family:var(--font-display); font-weight:900;
+    font-size:108px; line-height:.95; letter-spacing:-.03em;
+    text-transform:uppercase; margin:0; max-width:920px;
+  }
+  .post.tplE .head em{font-style:italic;}
+  .post.tplE .head .ink{color:var(--ink);}
+  .post.tplE .bullets{display:flex; flex-direction:column; gap:18px; margin-top:20px;}
+  .post.tplE .b{
+    display:flex; align-items:center; gap:22px;
+    font-family:var(--font-display); font-weight:800; font-size:30px;
+    letter-spacing:-.01em; text-transform:uppercase;
+  }
+  .post.tplE .b::before{
+    content:"✓"; display:inline-flex; align-items:center; justify-content:center;
+    width:52px; height:52px; background:var(--ink); color:var(--yellow);
+    font-size:30px; line-height:1;
+  }
+  .post.tplE .mark{filter:none;}
+  .post.tplE .url{color:var(--ink);}
+  .post.tplE .rule-bottom{background:var(--ink);}
+
+  .post.tplF{background:var(--paper); color:var(--ink);}
+  .post.tplF .inner{position:absolute; inset:0; padding:96px 80px 160px; display:flex; flex-direction:column; justify-content:center; gap:34px;}
+  .post.tplF .quotemark{
+    font-family:var(--font-serif); font-style:italic; font-weight:700;
+    font-size:260px; line-height:.6; color:var(--yellow); margin:0 0 -20px;
+  }
+  .post.tplF .quote{
+    font-family:var(--font-serif); font-style:italic; font-weight:400;
+    font-size:66px; line-height:1.18; color:var(--ink); margin:0; max-width:880px;
+  }
+  .post.tplF .quote b{font-weight:700; font-style:italic; color:var(--forge);}
+  .post.tplF .attrib{display:flex; align-items:center; gap:18px; margin-top:10px;}
+  .post.tplF .attrib .bar{width:60px; height:4px; background:var(--ink);}
+  .post.tplF .attrib .who{
+    font-family:var(--font-display); font-weight:800; font-size:18px;
+    letter-spacing:.18em; text-transform:uppercase;
+  }
+  .post.tplF .attrib .who span{color:var(--gray); font-weight:600;}
+  .post.tplF .mark{filter:none;}
+  .post.tplF .url{color:var(--ink);}
+  .post.tplF .rule-bottom{background:var(--ink);}
+
+  .post.tplG{background:var(--ink); color:#fff;}
+  .post.tplG .inner{position:absolute; inset:0; padding:96px 80px 160px; display:flex; flex-direction:column; gap:28px;}
+  .post.tplG .eyebrowYel{
+    align-self:flex-start; background:var(--yellow); color:var(--ink);
+    padding:10px 16px; font-family:var(--font-display); font-weight:800;
+    font-size:16px; letter-spacing:.28em; text-transform:uppercase;
+  }
+  .post.tplG .head{
+    font-family:var(--font-display); font-weight:900;
+    font-size:104px; line-height:.96; letter-spacing:-.025em;
+    text-transform:uppercase; margin:0; max-width:920px;
+  }
+  .post.tplG .head em{font-style:italic;}
+  .post.tplG .head .yel{color:var(--yellow);}
+  .post.tplG .industries{display:grid; grid-template-columns:repeat(3, 1fr); gap:18px; margin-top:24px;}
+  .post.tplG .ind{
+    border:2px solid var(--yellow); padding:18px 16px; text-align:center;
+    font-family:var(--font-display); font-weight:800; font-size:18px;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--yellow);
+  }
+</style>
+</head>
+<body>
+
+<header class="page-head">
+  <span class="eyebrow">Weekly Social · 2026 Editorial Calendar</span>
+  <h1>52 Posts. <em>One voice.</em> <span class="yel">Real growth.</span></h1>
+  <p class="sub">A full year of Business Builders social posts — one per week — built on the brand system. Each post is a production-ready 1080&times;1080 square with a copy-and-paste caption below.</p>
+  <div class="legend">
+    <span class="chip"><span class="sw" style="background:#1A1918"></span>Headline</span>
+    <span class="chip"><span class="sw" style="background:#FACC15"></span>Stat</span>
+    <span class="chip"><span class="sw" style="background:#F7F5F2"></span>Tip</span>
+    <span class="chip"><span class="sw" style="background:#F49E1C"></span>Pillar</span>
+    <span class="chip"><span class="sw" style="background:#1A1918; border:1px solid #fff"></span>Split</span>
+    <span class="chip"><span class="sw" style="background:#F7F5F2"></span>Quote</span>
+    <span class="chip"><span class="sw" style="background:#1A1918; border:1px solid #fff"></span>Industry</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="grid" class="grid">
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 01 · Jan 5</span>
+        <span class="tag">Plan</span>
+      </div>
+      <div class="post-wrap" data-wk="1">
+      <div class="post tplA">
+        <div class="bg-grid"></div><div class="wm">BB</div>
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>2026 · New Year</span>
+          <h2 class="head">START THE YEAR <em>WITH A PLAN</em> THAT <span class="yel">ACTUALLY WORKS</span>.</h2>
+          <p class="sub">Most companies kick off the year with a wish list. You need a one-page plan your whole team can run.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">The #1 reason marketing misses plan in Q1? There was no plan.<br><br>A blank calendar + a blank playbook = a blank pipeline in March.<br><br>This week, we&#x27;re running free 30-minute &#x27;what&#x27;s your 2026 plan?&#x27; sessions — comment PLAN and we&#x27;ll send you the slot link.</div>
+        <div class="tags">#StoryBrand #MarketingStrategy #SmallBusiness #2026Marketing</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 02 · Jan 12</span>
+        <span class="tag out">Tip</span>
+      </div>
+      <div class="post-wrap" data-wk="2">
+      <div class="post tplC">
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Weekly Tip</span>
+          <div class="numbox">01</div>
+          <h2 class="head">If they can't <em>repeat your pitch</em>, they <span class="yel">can't refer you.</span></h2>
+          <p class="sub">A one-liner isn't marketing fluff. It's the fastest word-of-mouth engine you've got.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Quick test: ask 5 of your best customers to describe what you do in one sentence.<br><br>If you get 5 different answers, you don&#x27;t have a referral problem — you have a message problem.<br><br>Clear message → clear referrals.</div>
+        <div class="tags">#OneLiner #StoryBrand #WordOfMouth</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 03 · Jan 19</span>
+        <span class="tag">Stat</span>
+      </div>
+      <div class="post-wrap" data-wk="3">
+      <div class="post tplB">
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Proof, not promises</span>
+          <div class="stat">532<span class='unit'>%</span></div>
+          <div class="label">Increase in organic traffic for a BB client in 12 months.</div>
+          <p class="sub">Clear message + consistent content + technical SEO. Nothing magic, just the work.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">No AI voodoo. No 10x growth hacks. Just the boring stuff done right for 12 months straight:<br><br>• A website that answers the real buyer&#x27;s real questions<br>• Content mapped to the funnel (not to our egos)<br>• Clean tracking so we know what&#x27;s actually moving<br><br>Want the case study? DM us &#x27;TRAFFIC&#x27;.</div>
+        <div class="tags">#SEO #CaseStudy #Growth</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 04 · Jan 26</span>
+        <span class="tag">Pillar</span>
+      </div>
+      <div class="post-wrap" data-wk="4">
+      <div class="post tplE">
+        <div class="inner">
+          <span class="pillarBadge">Pillar · PLAN</span>
+          <h2 class="head">Every growth play starts with <em>one</em> <span class="ink">messaging document.</span></h2>
+          <div class="bullets"><div class="b">Messaging blueprint</div><div class="b">Website blueprint</div><div class="b">Content blueprint</div><div class="b">Marketing blueprint</div></div>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">We sell four blueprints before we sell a single deliverable.<br><br>Because without them, everything else is guessing.<br><br>PILLAR 1: PLAN. Everything begins here.</div>
+        <div class="tags">#MarketingPlan #StoryBrand #Strategy</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 05 · Feb 2</span>
+        <span class="tag out">Quote</span>
+      </div>
+      <div class="post-wrap" data-wk="5">
+      <div class="post tplF">
+        <div class="inner">
+          <div class="quotemark">&ldquo;</div>
+          <p class="quote">"Customers don't buy the <b>best</b> product. They buy the one <b>they understand the fastest.</b>"</p>
+          <div class="attrib"><span class="bar"></span><span class="who">Donald Miller <span>· Author of Building a StoryBrand</span></span></div>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">If your homepage needs a paragraph to explain itself, you&#x27;re losing the race.<br><br>Clear beats clever. Every time.</div>
+        <div class="tags">#StoryBrand #Clarity #Marketing</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 06 · Feb 9</span>
+        <span class="tag dark">Split</span>
+      </div>
+      <div class="post-wrap" data-wk="6">
+      <div class="post tplD">
+        <div class="halves">
+          <div class="half top">
+            <span class="tagline">The problem</span>
+            <h3 class="line">You've spent <em>20 hours</em> on a website no one reads.</h3>
+          </div>
+          <div class="half bot">
+            <span class="tagline">The plan</span>
+            <h3 class="line">We build <em>pages that convert</em> — in weeks, not months.</h3>
+          </div>
+        </div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">The website you paid for should pay you back.<br><br>We&#x27;ve got a 6-week sprint that ships a StoryBrand homepage, 3 core pages, and a lead form that actually captures leads.<br><br>Ready to stop paying for digital wallpaper? Link in bio.</div>
+        <div class="tags">#WebDesign #Conversion #StoryBrand</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 07 · Feb 16</span>
+        <span class="tag out">Tip</span>
+      </div>
+      <div class="post-wrap" data-wk="7">
+      <div class="post tplC">
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Weekly Tip</span>
+          <div class="numbox">02</div>
+          <h2 class="head">Put the <em>buyer's problem</em> <span class="yel">above the fold.</span></h2>
+          <p class="sub">Not your logo. Not your tagline. The problem you solve, in the words your customer already uses.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Go look at your homepage right now.<br><br>Does the first line name a problem your buyer is saying out loud today?<br><br>If no: rewrite it before you run another ad dollar.</div>
+        <div class="tags">#WebsiteAudit #Copywriting #StoryBrand</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 08 · Feb 23</span>
+        <span class="tag dark">Industry</span>
+      </div>
+      <div class="post-wrap" data-wk="8">
+      <div class="post tplG">
+        <div class="bg-grid"></div><div class="wm">BB</div>
+        <div class="inner">
+          <span class="eyebrowYel">How we help you grow</span>
+          <h2 class="head"><em>Industry specialists.</em> <span class="yel">Not generalists.</span></h2>
+          <div class="industries"><div class="ind">Healthcare</div><div class="ind">Education</div><div class="ind">Home Services</div><div class="ind">Automotive</div><div class="ind">Dental</div><div class="ind">Non-Profit</div><div class="ind">Construction</div><div class="ind">Manufacturing</div><div class="ind">Retail</div></div>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">26 years. 1000+ clients. A handful of industries where we&#x27;ve seen every buyer objection before.<br><br>We don&#x27;t learn on your dime.</div>
+        <div class="tags">#IndustryExperts #Agency #B2B</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 09 · Mar 2</span>
+        <span class="tag">Headline</span>
+      </div>
+      <div class="post-wrap" data-wk="9">
+      <div class="post tplA">
+        <div class="bg-grid"></div><div class="wm">BB</div>
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Spring Clean</span>
+          <h2 class="head">SPRING CLEAN <em>YOUR FUNNEL.</em> <span class="yel">FREE AUDIT.</span></h2>
+          <p class="sub">We'll audit your homepage, Google Ads account, and email open rates — send back a 10-point punch list. No sales pitch.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Every March we run free funnel audits for 25 businesses. First come, first served.<br><br>What you get:<br>• Homepage score (clarity + CTA)<br>• Ads waste check (avg. we find: $2,400/mo in wasted spend)<br>• Email open-rate benchmark<br><br>Comment AUDIT to grab a slot.</div>
+        <div class="tags">#MarketingAudit #FreeAudit #SpringClean</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 10 · Mar 9</span>
+        <span class="tag out">Tip</span>
+      </div>
+      <div class="post-wrap" data-wk="10">
+      <div class="post tplC">
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Weekly Tip</span>
+          <div class="numbox">03</div>
+          <h2 class="head"><em>One CTA</em> per page. <span class="yel">Every time.</span></h2>
+          <p class="sub">Three buttons saying three different things means the visitor picks the easiest one: leaving.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Confused visitors don&#x27;t email you. They close the tab.<br><br>Pick your primary CTA. Make it bigger. Make it louder. Repeat it 3x on the page.<br><br>That&#x27;s it. That&#x27;s the optimization.</div>
+        <div class="tags">#ConversionRate #CRO #WebDesign</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 11 · Mar 16</span>
+        <span class="tag">Stat</span>
+      </div>
+      <div class="post-wrap" data-wk="11">
+      <div class="post tplB">
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Tracked across 40 clients</span>
+          <div class="stat">$2.4<span class='unit'>k</span></div>
+          <div class="label">Average monthly ad spend we find wasted in a new audit.</div>
+          <p class="sub">Negative keywords, broken match types, match-all campaigns running unattended.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Last quarter we onboarded 12 new Google Ads clients. 11 of them had at least $1,500/mo in wasted spend.<br><br>The fix isn&#x27;t exotic. It&#x27;s just attention.<br><br>We offer a 60-minute ads teardown. Reply AUDIT if you want one.</div>
+        <div class="tags">#GoogleAds #PPC #WastedSpend</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 12 · Mar 23</span>
+        <span class="tag">Pillar</span>
+      </div>
+      <div class="post-wrap" data-wk="12">
+      <div class="post tplE">
+        <div class="inner">
+          <span class="pillarBadge">Pillar · PRODUCE</span>
+          <h2 class="head">Built <em>once</em>. <span class="ink">Built right.</span></h2>
+          <div class="bullets"><div class="b">Websites that convert</div><div class="b">Video that sells</div><div class="b">Photo that builds trust</div><div class="b">Brand identity that lasts</div></div>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">PILLAR 2: PRODUCE. The stuff people actually see.<br><br>You can have the best plan on earth — if the website is broken, the video is boring, and the photos are stock, it doesn&#x27;t matter.<br><br>We build the assets that make the plan work.</div>
+        <div class="tags">#WebDesign #VideoProduction #BrandIdentity</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 13 · Mar 30</span>
+        <span class="tag out">Quote</span>
+      </div>
+      <div class="post-wrap" data-wk="13">
+      <div class="post tplF">
+        <div class="inner">
+          <div class="quotemark">&ldquo;</div>
+          <p class="quote">"Marketing is telling the world you're a rock star. <b>Content marketing</b> is showing the world you are one."</p>
+          <div class="attrib"><span class="bar"></span><span class="who">Robert Rose <span>· Content Marketing Institute</span></span></div>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Ads rent attention. Content builds trust.<br><br>You need both. Most companies only do the first.</div>
+        <div class="tags">#ContentMarketing #Trust #Marketing</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 14 · Apr 6</span>
+        <span class="tag">Headline</span>
+      </div>
+      <div class="post-wrap" data-wk="14">
+      <div class="post tplA">
+        <div class="bg-grid"></div><div class="wm">BB</div>
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Q2 · Get the ROI</span>
+          <h2 class="head">MEASURE <em>WHAT MATTERS.</em> <span class="yel">IGNORE THE REST.</span></h2>
+          <p class="sub">Impressions don't pay the rent. Qualified leads do. We build dashboards that only show the metrics you can act on.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Vanity metrics are expensive therapy.<br><br>Here&#x27;s our 4-metric starter dashboard:<br><br>1. Qualified leads / week<br>2. Cost per qualified lead<br>3. Sales-accepted rate<br>4. Avg. deal size<br><br>If you can&#x27;t see these at a glance, your agency is hiding.</div>
+        <div class="tags">#MarketingMetrics #ROI #Dashboards</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 15 · Apr 13</span>
+        <span class="tag out">Tip</span>
+      </div>
+      <div class="post-wrap" data-wk="15">
+      <div class="post tplC">
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Weekly Tip</span>
+          <div class="numbox">04</div>
+          <h2 class="head">Stop asking <em>"did we win?"</em> <span class="yel">Ask "what did we learn?"</span></h2>
+          <p class="sub">A losing campaign with a clear lesson is worth more than a winning one you can't explain.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Our team runs a weekly &#x27;what did we learn&#x27; review across every client account.<br><br>No finger-pointing. No fluff. Just: what moved, what didn&#x27;t, what we test next week.<br><br>Compounds fast.</div>
+        <div class="tags">#TeamCulture #AgencyLife #Optimization</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 16 · Apr 20</span>
+        <span class="tag">Stat</span>
+      </div>
+      <div class="post-wrap" data-wk="16">
+      <div class="post tplB">
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Retention is a marketing metric</span>
+          <div class="stat">5<span class='unit'>×</span></div>
+          <div class="label">Cheaper to keep a customer than to acquire a new one.</div>
+          <p class="sub">Your existing list is the cheapest growth lever you've got. Mine it before you buy more clicks.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">The email list you ignored is the growth hack you wanted.<br><br>Three emails. Three months. 17% of our dormant-customer list came back and bought again.<br><br>Want the template? Drop EMAIL in the comments.</div>
+        <div class="tags">#EmailMarketing #Retention #Growth</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 17 · Apr 27</span>
+        <span class="tag dark">Industry</span>
+      </div>
+      <div class="post-wrap" data-wk="17">
+      <div class="post tplG">
+        <div class="bg-grid"></div><div class="wm">BB</div>
+        <div class="inner">
+          <span class="eyebrowYel">Real work. Real industries.</span>
+          <h2 class="head"><em>Niche</em> wins. <span class="yel">Generic loses.</span></h2>
+          <div class="industries"><div class="ind">Dental</div><div class="ind">HVAC</div><div class="ind">Roofing</div><div class="ind">Medspa</div><div class="ind">Law</div><div class="ind">Accounting</div><div class="ind">SaaS</div><div class="ind">Real Estate</div><div class="ind">Auto</div></div>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Our best-performing ads aren&#x27;t the creative ones. They&#x27;re the specific ones.<br><br>&#x27;Best dentist near you&#x27; ≠ &#x27;Sedation dentistry for anxious patients in Ponte Vedra.&#x27;<br><br>Specificity is the cheat code.</div>
+        <div class="tags">#IndustryMarketing #NicheWins #StoryBrand</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 18 · May 4</span>
+        <span class="tag">Pillar</span>
+      </div>
+      <div class="post-wrap" data-wk="18">
+      <div class="post tplE">
+        <div class="inner">
+          <span class="pillarBadge">Pillar · PROMOTE</span>
+          <h2 class="head"><em>Get found.</em> <span class="ink">Get clicked.</span> <span class="ink">Get chosen.</span></h2>
+          <div class="bullets"><div class="b">Search Engine Optimization</div><div class="b">Pay-Per-Click Advertising</div><div class="b">Social Media Marketing</div><div class="b">HubSpot & CRM</div></div>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">PILLAR 3: PROMOTE.<br><br>Once you have the plan (PLAN) and the assets (PRODUCE), it&#x27;s time to drive traffic.<br><br>We keep four levers running — SEO, PPC, Social, CRM — and we only push the ones your math supports.</div>
+        <div class="tags">#SEO #PPC #HubSpot #SocialMedia</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 19 · May 11</span>
+        <span class="tag out">Quote</span>
+      </div>
+      <div class="post-wrap" data-wk="19">
+      <div class="post tplF">
+        <div class="inner">
+          <div class="quotemark">&ldquo;</div>
+          <p class="quote">"People don't buy <b>what you do</b>, they buy <b>why you do it.</b>"</p>
+          <div class="attrib"><span class="bar"></span><span class="who">Simon Sinek <span>· Start With Why</span></span></div>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Your &#x27;why&#x27; isn&#x27;t a poster on the breakroom wall.<br><br>It&#x27;s the first sentence on your homepage.<br><br>If it isn&#x27;t, rewrite it.</div>
+        <div class="tags">#StartWithWhy #Branding #SimonSinek</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 20 · May 18</span>
+        <span class="tag out">Tip</span>
+      </div>
+      <div class="post-wrap" data-wk="20">
+      <div class="post tplC">
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Weekly Tip</span>
+          <div class="numbox">05</div>
+          <h2 class="head">Your sales team is your <em>best content</em> <span class="yel">research tool.</span></h2>
+          <p class="sub">Record 5 discovery calls. The objections you hear on repeat — that's your next blog post, landing page, and ad.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Every objection = a page on your website you haven&#x27;t written yet.<br><br>&#x27;Is it safe?&#x27; → &#x27;How we keep your data safe&#x27;<br>&#x27;How long does it take?&#x27; → &#x27;Timeline: what to expect&#x27;<br>&#x27;What if it doesn&#x27;t work?&#x27; → &#x27;Our guarantee&#x27;<br><br>Done in a morning.</div>
+        <div class="tags">#ContentStrategy #SalesEnablement #StoryBrand</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 21 · May 25</span>
+        <span class="tag dark">Split</span>
+      </div>
+      <div class="post-wrap" data-wk="21">
+      <div class="post tplD">
+        <div class="halves">
+          <div class="half top">
+            <span class="tagline">What they tell you</span>
+            <h3 class="line"><em>SEO takes</em> 12 months to work.</h3>
+          </div>
+          <div class="half bot">
+            <span class="tagline">What's actually true</span>
+            <h3 class="line"><em>Bad SEO</em> takes 12 months. <em>Good SEO</em> pays <em>this</em> quarter.</h3>
+          </div>
+        </div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">If your agency is asking for a year of patience on your dime, they&#x27;re either slow — or hiding.<br><br>Our onboarding playbook targets first qualified lead from SEO in &lt;90 days. It&#x27;s not magic. It&#x27;s focus.</div>
+        <div class="tags">#SEO #Agency #Growth</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 22 · May 31</span>
+        <span class="tag">Headline</span>
+      </div>
+      <div class="post-wrap" data-wk="22">
+      <div class="post tplA">
+        <div class="bg-grid"></div><div class="wm">BB</div>
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Memorial Day · Summer Kickoff</span>
+          <h2 class="head">SUMMER IS <em>SHORT.</em> <span class="yel">YOUR FUNNEL CAN'T BE.</span></h2>
+          <p class="sub">Buyers don't take vacations from Googling. If your site's asleep in June, someone else is closing in July.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Three things to automate before you leave for a long weekend:<br><br>1. Auto-reply email on forms (with calendar link)<br>2. Chat widget with an FAQ bot<br>3. Google Business Profile messaging turned on<br><br>Your future self says thanks.</div>
+        <div class="tags">#MarketingAutomation #LeadGen #SummerStrategy</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 23 · Jun 7</span>
+        <span class="tag">Stat</span>
+      </div>
+      <div class="post-wrap" data-wk="23">
+      <div class="post tplB">
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Halfway check</span>
+          <div class="stat">50<span class='unit'>%</span></div>
+          <div class="label">Of the year is already gone. Is your plan half-done?</div>
+          <p class="sub">Midyear is the only honest scoreboard. If you're behind, there's still 6 months.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Pull your 2026 plan up today. Five questions:<br><br>1. What did we say we&#x27;d ship? Did we?<br>2. What lagging metric is off pace?<br>3. What leading metric is fine?<br>4. What should we kill?<br>5. What should we double on?<br><br>No plan? DM us. We&#x27;ll help.</div>
+        <div class="tags">#MidyearReview #MarketingPlan #Accountability</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 24 · Jun 14</span>
+        <span class="tag out">Tip</span>
+      </div>
+      <div class="post-wrap" data-wk="24">
+      <div class="post tplC">
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Weekly Tip</span>
+          <div class="numbox">06</div>
+          <h2 class="head">Kill <em>one meeting.</em> <span class="yel">Add one review.</span></h2>
+          <p class="sub">Replace the 'status update' nobody reads with a 30-minute 'what did we learn' call that everyone remembers.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Most weekly marketing meetings are updates disguised as meetings.<br><br>Updates belong in docs. Meetings are for decisions.<br><br>Try it for 4 weeks. Watch what accelerates.</div>
+        <div class="tags">#MarketingOps #TeamProductivity #Leadership</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 25 · Jun 21</span>
+        <span class="tag out">Quote</span>
+      </div>
+      <div class="post-wrap" data-wk="25">
+      <div class="post tplF">
+        <div class="inner">
+          <div class="quotemark">&ldquo;</div>
+          <p class="quote">"Strategy without execution is a <b>hallucination.</b>"</p>
+          <div class="attrib"><span class="bar"></span><span class="who">Thomas Edison <span>· (attributed)</span></span></div>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">A beautiful deck that nobody does anything with is the most expensive art in your building.<br><br>We don&#x27;t sell decks. We sell done.</div>
+        <div class="tags">#Execution #Strategy #Leadership</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 26 · Jun 28</span>
+        <span class="tag dark">Industry</span>
+      </div>
+      <div class="post-wrap" data-wk="26">
+      <div class="post tplG">
+        <div class="bg-grid"></div><div class="wm">BB</div>
+        <div class="inner">
+          <span class="eyebrowYel">Real clients. Real results.</span>
+          <h2 class="head"><em>26 years.</em> <span class="yel">1000+ clients.</span></h2>
+          <div class="industries"><div class="ind">Healthcare</div><div class="ind">Dental</div><div class="ind">Automotive</div><div class="ind">Home Services</div><div class="ind">Education</div><div class="ind">Legal</div><div class="ind">SaaS</div><div class="ind">Retail</div><div class="ind">Nonprofit</div></div>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">We&#x27;re not the new-kid agency. We&#x27;re the one you hire when you&#x27;re done with the new-kid agency.<br><br>Inc. 5000 twice. HubSpot Platinum. StoryBrand Certified. Built for companies that are ready to grow up.</div>
+        <div class="tags">#Agency #ProvenResults #StoryBrand</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 27 · Jul 5</span>
+        <span class="tag">Headline</span>
+      </div>
+      <div class="post-wrap" data-wk="27">
+      <div class="post tplA">
+        <div class="bg-grid"></div><div class="wm">BB</div>
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Independence Week</span>
+          <h2 class="head">MARKETING <em>FREEDOM</em> IS A <span class="yel">SYSTEM.</span></h2>
+          <p class="sub">Freedom isn't hiring one more intern. Freedom is a plan, a team, and a dashboard that work without you.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Three things that buy back a business owner&#x27;s time:<br><br>1. A plan anyone on the team can run<br>2. A dashboard that reports itself<br>3. A partner who shows up before you ask<br><br>That&#x27;s what we sell. The work is the by-product.</div>
+        <div class="tags">#EntrepreneurFreedom #MarketingSystems #BusinessOwner</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 28 · Jul 12</span>
+        <span class="tag out">Tip</span>
+      </div>
+      <div class="post-wrap" data-wk="28">
+      <div class="post tplC">
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Weekly Tip</span>
+          <div class="numbox">07</div>
+          <h2 class="head"><em>Write your next ad</em> <span class="yel">like a text to a friend.</span></h2>
+          <p class="sub">If you wouldn't say it out loud at a dinner table, it won't work on Facebook.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Quick gut check: read your ad copy out loud.<br><br>If you stumble, cut it.<br>If you sound like a brochure, rewrite it.<br>If you sound like a person, ship it.</div>
+        <div class="tags">#AdCopy #CopywritingTips #MarketingTips</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 29 · Jul 19</span>
+        <span class="tag">Stat</span>
+      </div>
+      <div class="post-wrap" data-wk="29">
+      <div class="post tplB">
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Trust compounds</span>
+          <div class="stat">1000<span class='unit'>+</span></div>
+          <div class="label">Businesses we've helped grow since 2000.</div>
+          <p class="sub">From Main Street shops to multi-state franchises. Same playbook, calibrated to your size.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">We didn&#x27;t get to 1000 clients by being the cheapest.<br><br>We got here by being the partner that stays when the easy stuff is done.</div>
+        <div class="tags">#LongTermPartner #Agency #Growth</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 30 · Jul 26</span>
+        <span class="tag">Pillar</span>
+      </div>
+      <div class="post-wrap" data-wk="30">
+      <div class="post tplE">
+        <div class="inner">
+          <span class="pillarBadge">Pillar · PROTECT</span>
+          <h2 class="head">Your site should <em>never</em> <span class="ink">wake you up at 2AM.</span></h2>
+          <div class="bullets"><div class="b">Managed hosting</div><div class="b">Weekly maintenance</div><div class="b">ADA & security</div><div class="b">24/7 monitoring</div></div>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">PILLAR 4: PROTECT.<br><br>A plan + assets + traffic means nothing if your site crashes Friday at 4pm.<br><br>We host it. We patch it. We watch it. You run your business.</div>
+        <div class="tags">#ManagedHosting #WebsiteSecurity #ADA</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 31 · Aug 2</span>
+        <span class="tag">Headline</span>
+      </div>
+      <div class="post-wrap" data-wk="31">
+      <div class="post tplA">
+        <div class="bg-grid"></div><div class="wm">BB</div>
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Back to Basics</span>
+          <h2 class="head">BORING <em>FUNDAMENTALS.</em> <span class="yel">BIG WINS.</span></h2>
+          <p class="sub">Title tags. Form confirmations. Calendar links in auto-replies. Most of 'growth hacking' is just doing the obvious, completely.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">A list of unsexy things that will move your pipeline more than your next Meta campaign:<br><br>• Fix your 404 page<br>• Turn on Google Business Profile messaging<br>• Add a scheduler link to every thank-you page<br>• Send one follow-up email 24 hours after every form fill<br><br>Boring = profitable.</div>
+        <div class="tags">#FundamentalsMatter #MarketingBasics #GrowthTips</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 32 · Aug 9</span>
+        <span class="tag out">Quote</span>
+      </div>
+      <div class="post-wrap" data-wk="32">
+      <div class="post tplF">
+        <div class="inner">
+          <div class="quotemark">&ldquo;</div>
+          <p class="quote">"Discipline equals <b>freedom.</b>"</p>
+          <div class="attrib"><span class="bar"></span><span class="who">Jocko Willink <span>· Extreme Ownership</span></span></div>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">In marketing, discipline looks like this:<br>• Same time, every week, for content<br>• Same review, every month, for ads<br>• Same cleanup, every quarter, for the CRM<br><br>Boring. Unstoppable.</div>
+        <div class="tags">#Discipline #MarketingOps #Leadership</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 33 · Aug 16</span>
+        <span class="tag out">Tip</span>
+      </div>
+      <div class="post-wrap" data-wk="33">
+      <div class="post tplC">
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Weekly Tip</span>
+          <div class="numbox">08</div>
+          <h2 class="head">Put a <em>face</em> <span class="yel">on every page.</span></h2>
+          <p class="sub">B2B or B2C, product or service — buyers want to see a human. Stock photos don't count.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">On every website we ship:<br><br>✓ Founder photo on the homepage<br>✓ Real team photos on the About page<br>✓ A real customer quote on every service page<br>✓ Zero stock imagery<br><br>Trust is a photograph.</div>
+        <div class="tags">#BrandPhotography #WebDesign #Trust</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 34 · Aug 23</span>
+        <span class="tag dark">Industry</span>
+      </div>
+      <div class="post-wrap" data-wk="34">
+      <div class="post tplG">
+        <div class="bg-grid"></div><div class="wm">BB</div>
+        <div class="inner">
+          <span class="eyebrowYel">Vertical expertise</span>
+          <h2 class="head"><em>Deep.</em> <span class="yel">Not wide.</span></h2>
+          <div class="industries"><div class="ind">Pediatric Dental</div><div class="ind">Plastic Surgery</div><div class="ind">MSP / IT</div><div class="ind">Roofing</div><div class="ind">Franchises</div><div class="ind">Church</div><div class="ind">Private School</div><div class="ind">Non-Profit</div><div class="ind">B2B Services</div></div>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">&#x27;We do everything&#x27; is the slowest way to be great at one thing.<br><br>We go deep in the verticals where we already know every buyer objection, every ad rejection, every SEO quirk.</div>
+        <div class="tags">#VerticalMarketing #IndustryExperts #Agency</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 35 · Aug 30</span>
+        <span class="tag dark">Split</span>
+      </div>
+      <div class="post-wrap" data-wk="35">
+      <div class="post tplD">
+        <div class="halves">
+          <div class="half top">
+            <span class="tagline">The wrong question</span>
+            <h3 class="line"><em>"What should we do</em> <em>for Q4?"</em></h3>
+          </div>
+          <div class="half bot">
+            <span class="tagline">The right question</span>
+            <h3 class="line"><em>"What did we already</em> commit to <em>— and are we on track?"</em></h3>
+          </div>
+        </div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Q4 isn&#x27;t a new plan. It&#x27;s the closing 90 days of the one you wrote in January.<br><br>If you&#x27;re asking &#x27;what should we do?&#x27; on Sept 1, you&#x27;ve already lost Q4.</div>
+        <div class="tags">#Q4Strategy #MarketingPlan #Execution</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 36 · Sep 6</span>
+        <span class="tag">Headline</span>
+      </div>
+      <div class="post-wrap" data-wk="36">
+      <div class="post tplA">
+        <div class="bg-grid"></div><div class="wm">BB</div>
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>90 days left</span>
+          <h2 class="head">CLOSE THE YEAR <em>STRONG.</em> <span class="yel">NOT LUCKY.</span></h2>
+          <p class="sub">Top 3 moves for the last 90 days: double the best-performing channel, kill the worst, and 2x your email frequency.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Q4 isn&#x27;t the time to test. It&#x27;s the time to pour fuel on what&#x27;s working.<br><br>Look at the last 12 weeks. Find the channel that crushed. Pour 80% of the budget there. Drop the bottom two.<br><br>Aggressive clarity beats polite diversification.</div>
+        <div class="tags">#Q4Marketing #CloseStrong #Growth</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 37 · Sep 13</span>
+        <span class="tag out">Tip</span>
+      </div>
+      <div class="post-wrap" data-wk="37">
+      <div class="post tplC">
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Weekly Tip</span>
+          <div class="numbox">09</div>
+          <h2 class="head">The <em>fastest CRO</em> win? <span class="yel">Rewrite the form.</span></h2>
+          <p class="sub">Cut every field you don't need today. Every extra field costs ~11% of your submissions.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">We audited 40 lead forms last month. Average: 9 fields.<br><br>Only 3 were actually used by sales to qualify.<br><br>Kill the rest. Submissions went up 38% across the sample. Sales quality stayed flat.</div>
+        <div class="tags">#ConversionRate #CRO #FormOptimization</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 38 · Sep 20</span>
+        <span class="tag">Stat</span>
+      </div>
+      <div class="post-wrap" data-wk="38">
+      <div class="post tplB">
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Email > everything</span>
+          <div class="stat">42<span class='unit'>×</span></div>
+          <div class="label">Return on $1 spent on email. More than any other channel.</div>
+          <p class="sub">Not sexy. Not new. Still the highest-ROI thing in your marketing stack.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Email is the channel everyone sleeps on because it&#x27;s &#x27;old.&#x27;<br><br>Meanwhile: 42x ROI. Dirt cheap. Owned list. Zero algorithm risk.<br><br>If you&#x27;re not emailing your list at least twice a month, you&#x27;re leaving money on the table.</div>
+        <div class="tags">#EmailMarketing #ROI #Retention</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 39 · Sep 27</span>
+        <span class="tag out">Quote</span>
+      </div>
+      <div class="post-wrap" data-wk="39">
+      <div class="post tplF">
+        <div class="inner">
+          <div class="quotemark">&ldquo;</div>
+          <p class="quote">"The best time to plant a tree was 20 years ago. The <b>second best</b> time is today."</p>
+          <div class="attrib"><span class="bar"></span><span class="who">Chinese Proverb </span></div>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Your website. Your content. Your list. Your reviews. Your brand.<br><br>Every one of them compounds.<br><br>Day 1 looks tiny. Year 3 looks like a moat.</div>
+        <div class="tags">#Compounding #LongTerm #Brand</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 40 · Oct 4</span>
+        <span class="tag">Headline</span>
+      </div>
+      <div class="post-wrap" data-wk="40">
+      <div class="post tplA">
+        <div class="bg-grid"></div><div class="wm">BB</div>
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Marketing Nightmares</span>
+          <h2 class="head">STOP WASTING TIME & MONEY ON <em>MARKETING THAT</em> <span class="yel">DOESN'T WORK.</span></h2>
+          <p class="sub">If the only metric you can report is 'we ran the campaign,' the campaign didn't happen.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">The three scariest lines we hear on discovery calls:<br><br>&#x27;Our last agency was great, but…&#x27;<br>&#x27;We&#x27;re not really tracking conversions.&#x27;<br>&#x27;We&#x27;ve been meaning to update the site for a while.&#x27;<br><br>All fixable. None of them fix themselves.</div>
+        <div class="tags">#MarketingHorrorStories #Agency #RealTalk</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 41 · Oct 11</span>
+        <span class="tag out">Tip</span>
+      </div>
+      <div class="post-wrap" data-wk="41">
+      <div class="post tplC">
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Weekly Tip</span>
+          <div class="numbox">10</div>
+          <h2 class="head">Audit your <em>thank-you page</em> <span class="yel">today.</span></h2>
+          <p class="sub">It's the most-ignored real estate in your funnel. Put a calendar link, a case study, and a next step on it.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Your thank-you page is the hottest moment in your entire funnel.<br><br>The buyer just said yes. They&#x27;re looking at the screen. They want to know &#x27;what&#x27;s next?&#x27;<br><br>Tell them. Put a calendar link there. Put a next step there. Don&#x27;t waste the moment.</div>
+        <div class="tags">#ConversionOptimization #ThankYouPage #CRO</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 42 · Oct 18</span>
+        <span class="tag dark">Split</span>
+      </div>
+      <div class="post-wrap" data-wk="42">
+      <div class="post tplD">
+        <div class="halves">
+          <div class="half top">
+            <span class="tagline">The myth</span>
+            <h3 class="line"><em>More channels</em> = more leads.</h3>
+          </div>
+          <div class="half bot">
+            <span class="tagline">The truth</span>
+            <h3 class="line"><em>Fewer channels,</em> done completely, wins.</h3>
+          </div>
+        </div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Most small teams try to do 6 channels at 20%.<br><br>Winners pick 2 channels and run them at 100%.<br><br>Pick your two. Fire the rest until the two are monsters.</div>
+        <div class="tags">#FocusBeatsMore #MarketingStrategy #PickYourBattles</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 43 · Oct 25</span>
+        <span class="tag">Stat</span>
+      </div>
+      <div class="post-wrap" data-wk="43">
+      <div class="post tplB">
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Brand stat</span>
+          <div class="stat">7<span class='unit'>×</span></div>
+          <div class="label">Touchpoints before a B2B buyer remembers your name.</div>
+          <p class="sub">One ad doesn't work. One email doesn't work. One post doesn't work. Seven of them do.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">The #1 reason marketing &#x27;doesn&#x27;t work&#x27; is: you stopped too early.<br><br>Most buyers need 7+ brand touches before they trust you enough to click.<br><br>If you ran an ad for 10 days and quit, you didn&#x27;t market. You auditioned.</div>
+        <div class="tags">#BrandAwareness #MarketingPatience #RuleOf7</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 44 · Nov 1</span>
+        <span class="tag">Pillar</span>
+      </div>
+      <div class="post-wrap" data-wk="44">
+      <div class="post tplE">
+        <div class="inner">
+          <span class="pillarBadge">Pillar · PLAN</span>
+          <h2 class="head"><em>2027 starts now.</em> <span class="ink">Book planning.</span></h2>
+          <div class="bullets"><div class="b">60 days to plan</div><div class="b">One-page 2027 roadmap</div><div class="b">Department-level goals</div><div class="b">Quarterly rocks</div></div>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">The businesses that crush Q1 2027 are booking their planning sessions today.<br><br>Not in January. Today.<br><br>BB planning sessions are 3-hour facilitated workshops with our senior team. Limited slots before holiday shutdown. DM PLAN27.</div>
+        <div class="tags">#2027Planning #MarketingStrategy #YearEnd</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 45 · Nov 8</span>
+        <span class="tag out">Quote</span>
+      </div>
+      <div class="post-wrap" data-wk="45">
+      <div class="post tplF">
+        <div class="inner">
+          <div class="quotemark">&ldquo;</div>
+          <p class="quote">"Gratitude turns <b>what we have</b> into enough."</p>
+          <div class="attrib"><span class="bar"></span><span class="who">Aesop <span>· (attributed)</span></span></div>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">To our clients, our team, our vendors, our community: thank you.<br><br>26 years. 1000+ partnerships. One mission — freedom, money, purpose, for everyone we support.</div>
+        <div class="tags">#Thankful #Community #SmallBusiness</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 46 · Nov 15</span>
+        <span class="tag out">Tip</span>
+      </div>
+      <div class="post-wrap" data-wk="46">
+      <div class="post tplC">
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Weekly Tip</span>
+          <div class="numbox">11</div>
+          <h2 class="head">Say <em>thank you</em> in <span class="yel">four places.</span></h2>
+          <p class="sub">Thank-you page. Thank-you email. First onboarding message. 30-day check-in. Low cost, high retention.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Retention is the cheapest growth channel nobody budgets for.<br><br>Four auto-sent &#x27;thanks&#x27; along the customer journey buys you months of goodwill.<br><br>Set it once. Benefit forever.</div>
+        <div class="tags">#CustomerRetention #CX #Loyalty</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 47 · Nov 22</span>
+        <span class="tag">Headline</span>
+      </div>
+      <div class="post-wrap" data-wk="47">
+      <div class="post tplA">
+        <div class="bg-grid"></div><div class="wm">BB</div>
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Thanksgiving Week</span>
+          <h2 class="head">GOOD MARKETING IS <em>GRATEFUL</em> <span class="yel">MARKETING.</span></h2>
+          <p class="sub">Sell less this week. Appreciate more. The algorithm rewards it. So do your customers.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">This week we&#x27;re skipping promos and sending thank-you emails to every client list we run.<br><br>Sales will be back Monday. Gratitude is a once-a-year reset. Don&#x27;t waste it.</div>
+        <div class="tags">#ThanksgivingMarketing #Gratitude #BrandBuilding</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 48 · Nov 29</span>
+        <span class="tag">Stat</span>
+      </div>
+      <div class="post-wrap" data-wk="48">
+      <div class="post tplB">
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Black Friday reality</span>
+          <div class="stat">73<span class='unit'>%</span></div>
+          <div class="label">Of BFCM buyers never come back without a follow-up email.</div>
+          <p class="sub">A discount is a transaction. A welcome series is a relationship.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Every Cyber Monday order is a prospect. Not a customer.<br><br>If you don&#x27;t have a 5-email welcome series queued up to ship this week, you&#x27;re paying for one-night stands.</div>
+        <div class="tags">#BFCM #EmailMarketing #CustomerJourney</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 49 · Dec 6</span>
+        <span class="tag out">Tip</span>
+      </div>
+      <div class="post-wrap" data-wk="49">
+      <div class="post tplC">
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Weekly Tip</span>
+          <div class="numbox">12</div>
+          <h2 class="head">Plan your <em>January launch</em> <span class="yel">in December.</span></h2>
+          <p class="sub">Winners don't start the year drafting. They start the year shipping. That means the January asset is done by Dec 20.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">January marketing separates in two camps:<br><br>Camp A: scrambling to plan.<br>Camp B: shipping.<br><br>The difference is 10 hours of December work. Block them now.</div>
+        <div class="tags">#YearEndPlanning #MarketingCalendar #LaunchPlan</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 50 · Dec 13</span>
+        <span class="tag dark">Industry</span>
+      </div>
+      <div class="post-wrap" data-wk="50">
+      <div class="post tplG">
+        <div class="bg-grid"></div><div class="wm">BB</div>
+        <div class="inner">
+          <span class="eyebrowYel">2026 Recap</span>
+          <h2 class="head"><em>One year.</em> <span class="yel">One team.</span> Real growth.</h2>
+          <div class="industries"><div class="ind">Healthcare</div><div class="ind">Dental</div><div class="ind">Education</div><div class="ind">Home Services</div><div class="ind">Automotive</div><div class="ind">Legal</div><div class="ind">SaaS</div><div class="ind">Nonprofit</div><div class="ind">Retail</div></div>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">2026 by the numbers:<br><br>• 1000+ active client relationships<br>• Billions of impressions delivered<br>• Every industry above, quietly growing<br><br>Here&#x27;s to a bigger 2027. Thanks for building with us.</div>
+        <div class="tags">#YearInReview #Agency #BusinessBuilders</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 51 · Dec 20</span>
+        <span class="tag out">Quote</span>
+      </div>
+      <div class="post-wrap" data-wk="51">
+      <div class="post tplF">
+        <div class="inner">
+          <div class="quotemark">&ldquo;</div>
+          <p class="quote">"<b>Clarity</b> is the kindest thing you can offer your customer."</p>
+          <div class="attrib"><span class="bar"></span><span class="who">Business Builders <span>· Brand Principle #1</span></span></div>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">We believe marketing isn&#x27;t loud. It&#x27;s clear.<br><br>Not clever. Clear.<br>Not trendy. Clear.<br>Not expensive. Clear.<br><br>That&#x27;s what we sell. Every time.</div>
+        <div class="tags">#StoryBrand #Clarity #Brand</div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="meta">
+        <span class="wk">Week 52 · Dec 27</span>
+        <span class="tag">Headline</span>
+      </div>
+      <div class="post-wrap" data-wk="52">
+      <div class="post tplA">
+        <div class="bg-grid"></div><div class="wm">BB</div>
+        <div class="inner">
+          <span class="kicker"><span class="dot"></span>Onward · 2027</span>
+          <h2 class="head">CLEAR MESSAGE. <em>PROVEN STRATEGY.</em> <span class="yel">REAL GROWTH.</span></h2>
+          <p class="sub">Same mission into 2027. New plans. New clients. Same promise. Let's build what's next.</p>
+        </div>
+        <img class="mark" src="assets/logo-primary.png" alt="">
+        <span class="url">bbuilders.com</span>
+        <div class="rule-bottom"></div>
+      </div></div>
+      <div class="cap">
+        <div class="hd">Caption</div>
+        <div class="body">Thanks for a great 2026.<br><br>We&#x27;re heads-down on 2027 plans with every client who&#x27;s ready.<br><br>If you want to be on that list, there&#x27;s one step: bbuilders.com → request a quote. See you in the new year.</div>
+        <div class="tags">#2027 #NewYear #MarketingStrategy #StoryBrand</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  function rescale(){
+    document.querySelectorAll(".post-wrap").forEach(function(w){
+      var post = w.querySelector(".post");
+      if (!post) return;
+      var s = w.clientWidth / 1080;
+      post.style.transform = "scale(" + s + ")";
+      w.style.height = (1080 * s) + "px";
+    });
+  }
+  window.addEventListener("load", rescale);
+  window.addEventListener("resize", rescale);
+</script>
+</body>
+</html>

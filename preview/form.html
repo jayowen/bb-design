@@ -1,0 +1,22 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;background:#fff;font-family:var(--font-body);}
+  .card{padding:24px; display:flex; flex-direction:column; gap:12px; max-width:360px;}
+  label{font-family:var(--font-display); font-weight:700; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#1A1918;}
+  input,textarea,select{font-family:var(--font-body); font-size:15px; padding:12px 14px; border:1.5px solid #1A1918; border-radius:2px; background:#fff; color:#1A1918; width:100%; outline:none;}
+  input:focus,textarea:focus,select:focus{box-shadow:3px 3px 0 0 #FACC15;}
+  .row{display:flex; gap:10px;}
+  .row > div{flex:1;}
+  button{font-family:var(--font-display); font-weight:700; font-size:13px; letter-spacing:0.06em; text-transform:uppercase; padding:14px 22px; background:#FACC15; color:#1A1918; border:2px solid #1A1918; border-radius:2px; cursor:pointer; box-shadow:4px 4px 0 0 #1A1918; align-self:flex-start;}
+</style></head><body>
+<div class="card">
+  <div class="row">
+    <div><label>First Name</label><input value="Tiffany" /></div>
+    <div><label>Last Name</label><input placeholder="Carrion" /></div>
+  </div>
+  <div><label>Email</label><input type="email" placeholder="you@company.com" /></div>
+  <button>Request a Quote →</button>
+</div>
+</body></html>
